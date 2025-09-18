@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In-Class: Two Simple CSS Grids</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 16px; }
+    img { max-width: 100%; height: auto; }
+    /* Grid A: 3 equal columns. One item spans 2 columns. */
+    .gridA { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .gridA > div { background: #eee; padding: 12px; text-align: center; }
+    .span-2 { grid-column: span 2; }
+    /* Grid B: header / main + sidebar / footer using named areas. */
+    .gridB { 
+      display: grid; gap: 8px;
+      grid-template-areas:
+        "header header"
+        "main sidebar"
+        "footer footer";
+      grid-template-columns: 2fr 1fr;
+    }
+    .gridB > * { background: #eee; padding: 12px; }
+    .header{ grid-area: header; }
+    .main{ grid-area: main; }
+    .sidebar{ grid-area: sidebar; }
+    .footer{ grid-area: footer; }
+    /* Stack on small screens */
+    @media (max-width: 600px) {
+      .gridB {
+        grid-template-areas:
+          "header"
+          "main"
+          "sidebar"
+          "footer";
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>In-Class: Two Simple CSS Grids</h1>
+  <p><a href="../">← Back to main page</a></p>
+
+  <h2>Drawings (required images)</h2>
+  <p>These are the drawings I made first, then I coded the matching grids below.</p>
+  <p>
+    <img src="gridA.png" alt="Drawing for Grid A (3 columns, one item spans 2 columns)">
+  </p>
+  <p>
+    <img src="gridB.png" alt="Drawing for Grid B (header, main, sidebar, footer)">
+  </p>
+
+  <h2>Grid A (matches the first drawing)</h2>
+  <div class="gridA">
+    <div>A1</div>
+    <div class="span-2">A2 (spans 2 columns)</div>
+    <div>A3</div>
+    <div>A4</div>
+    <div>A5</div>
+    <div>A6</div>
+    <div>A7</div>
+    <div>A8</div>
+  </div>
+
+  <h2>Grid B (matches the second drawing)</h2>
+  <div class="gridB">
+    <div class="header">Header</div>
+    <div class="main">Main</div>
+    <div class="sidebar">Sidebar</div>
+    <div class="footer">Footer</div>
+  </div>
+</body>
+</html>

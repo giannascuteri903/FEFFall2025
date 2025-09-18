@@ -1,4 +1,5 @@
 # FEFFall2025
-Front End Fundamentals Class Notes
+Live pages:
+- Root: https://giannascuteri903.github.io/FEFFall2025/
+- In-Class Grids: https://giannascuteri903.github.io/FEFFall2025/grid-assignment/
 
-Learning HTML
