@@ -5,38 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Two Simple CSS Grids</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 16px; }
-    img { max-width: 100%; height: auto; }
+  body { font-family: Arial, sans-serif; margin: 16px; }
+  img { max-width: 100%; height: auto; }
 
-    /* Grid A */
-    .gridA {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .gridA > div {
-      background: #eee;
-      padding: 12px;
-      text-align: center;
-    }
-    .span-2 { grid-column: span 2; }
+  /* ===== GRID A =====
+     Goal: 3 equal columns, 3 uniform rows (fixed height),
+     one item spans 2 columns. Matches the simple sketch. */
+  .gridA {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal cols */
+    grid-auto-rows: 120px;                 /* each row ≈ the sketch height */
+    gap: 8px;
+  }
+  .gridA > div {
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;                           /* keep exact height */
+  }
+  .gridA .span-2 { grid-column: span 2; } /* A2 spans two columns */
 
-    /* Grid B */
-    .gridB {
-      display: grid;
-      gap: 8px;
-      grid-template-columns: 2fr 1fr;
-      grid-template-areas:
-        "header header"
-        "main sidebar"
-        "footer footer";
-    }
-    .gridB > * { background: #eee; padding: 12px; }
-    .header  { grid-area: header; }
-    .main    { grid-area: main; }
-    .sidebar { grid-area: sidebar; }
-    .footer  { grid-area: footer; }
-  </style>
+  /* ===== GRID B =====
+     Goal: header full width (row 1),
+           main (left) + sidebar (right) filling a taller middle area (row 2),
+           footer full width (row 3).
+     Row heights fixed to match sketch proportions. */
+  .gridB {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 2fr 1fr;       /* wider main column */
+    grid-template-areas:
+      "header header"
+      "main   sidebar"
+      "footer footer";
+    grid-template-rows: 120px 240px 120px; /* header, TALL middle, footer */
+  }
+  .gridB > * {
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;                           /* keep exact height */
+  }
+  .header  { grid-area: header; }
+  .main    { grid-area: main; }
+  .sidebar { grid-area: sidebar; }
+  .footer  { grid-area: footer; }
+
+  /* OPTIONAL: If your instructor wants it to stay EXACTLY like the drawing,
+     remove any mobile stacking. If you *do* want stacking on phones, add: 
+     @media (max-width: 600px) { ... } as you had before. */
+</style>
 </head>
 <body>
   <h1>In-Class: Two Simple CSS Grids</h1>
