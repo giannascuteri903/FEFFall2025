@@ -1,46 +1,111 @@
+/* ================================
+   Assignment 2 - Stylesheet
+   Princess Bella Story Website
+   ================================ */
+
+/* --- Variables (for easy colors) --- */
 :root {
   --ink: #222;
   --muted: #555;
   --accent: #0a58ca;
+  --bg: #fff;
 }
 
+/* --- Base styles --- */
 html {
-  scroll-behavior: smooth;          
+  scroll-behavior: smooth;   /* rubric: new CSS property */
 }
 
 body {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif; /* custom font */
   color: var(--ink);
+  background: var(--bg);
   margin: 16px;
   line-height: 1.5;
 }
 
-h1 { font-weight: 800; margin: 0 0 8px; }
-p  { margin: 0 0 12px; color: var(--muted); }
+/* --- Tag selectors (rubric requires at least 2) --- */
+h1 { 
+  font-weight: 800; 
+  margin: 0 0 8px; 
+}
+
+p { 
+  margin: 0 0 12px; 
+  color: var(--muted); 
+}
+
+/* --- Navigation --- */
+.main-nav {
+  margin: 12px 0;
+}
 
 .main-nav a {
   color: var(--accent);
-  text-decoration: none;            
-  padding: 2px 4px;
+  text-decoration: none;     /* remove underline */
+  padding: 2px 6px;
   border-radius: 4px;
+  transition: background 0.2s ease;
 }
+
 .main-nav a:hover {
   background: rgba(10,88,202,0.12); /* hover effect */
 }
 
-.section { margin: 24px 0; }
+/* --- Sections --- */
+.section { 
+  margin: 24px 0; 
+}
 
+.section h2 {
+  margin-bottom: 8px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+/* --- Gallery --- */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  gap: 16px;
+  align-items: start;
 }
+
+/* Each gallery tile */
+.gallery figure {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
 .gallery img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 5;   /* new property: makes uniform tiles */
+  object-fit: cover;
   display: block;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
 }
-.gallery p { margin: 4px 0 0; text-align: center; }
+
+.gallery figcaption {
+  padding: 8px 10px;
+  text-align: center;
+  font-style: italic;
+  color: #333;
+}
+
+/* Subtle hover effect */
+.gallery figure:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.10);
+}
+
+/* --- Footer --- */
+footer {
+  margin-top: 32px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+}
