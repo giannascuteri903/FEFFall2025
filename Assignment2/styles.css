@@ -1,5 +1,5 @@
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; } /* new property for rubric */
+html { scroll-behavior: smooth; } 
 body.container {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* custom font */
