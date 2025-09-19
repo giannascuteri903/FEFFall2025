@@ -5,46 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Two Simple CSS Grids</title>
   <style>
-  body { font-family: Arial, sans-serif; margin: 16px; }
-  img { max-width: 100%; height: auto; }
+    body { font-family: Arial, sans-serif; margin: 16px; }
+    img { max-width: 100%; height: auto; display: block; }
 
- 
-  .gridA {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-auto-rows: 120px;                 
-    gap: 8px;
-  }
-  .gridA > div {
-    background: #eee;
-    display: flex; align-items: center; justify-content: center;
-    padding: 0;                           
-  }
-  .gridA .span-2 { grid-column: span 2; } 
+    /* ===== GRID A ===== */
+    .GridA {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 120px;          /* fixed row height */
+      gap: 8px;
+      max-width: 900px;
+      margin-bottom: 24px;
+    }
+    .GridA > div {
+      background: #eee;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .GridA .span-2 { grid-column: span 2; }
 
-  
-  .gridB {
-    display: grid;
-    gap: 8px;
-    grid-template-columns: 2fr 1fr;      
-    grid-template-areas:
-      "header header"
-      "main   sidebar"
-      "footer footer";
-    grid-template-rows: 120px 240px 120px; 
-  }
-  .gridB > * {
-    background: #eee;
-    display: flex; align-items: center; justify-content: center;
-    padding: 0;                           
-  }
-  .header  { grid-area: header; }
-  .main    { grid-area: main; }
-  .sidebar { grid-area: sidebar; }
-  .footer  { grid-area: footer; }
-
-  
-</style>
+    /* ===== GRID B ===== */
+    .GridB {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "header header"
+        "main   sidebar"
+        "footer footer";
+      grid-template-rows: 120px 240px 120px;
+      max-width: 900px;
+    }
+    .GridB > * {
+      background: #eee;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+    .header  { grid-area: header; }
+    .main    { grid-area: main; }
+    .sidebar { grid-area: sidebar; }
+    .footer  { grid-area: footer; }
+  </style>
 </head>
 <body>
   <h1>In-Class: Two Simple CSS Grids</h1>
@@ -54,10 +55,10 @@
   <p><img src="GridA.jpeg" alt="Drawing of Grid A"></p>
   <p><img src="GridB.jpeg" alt="Drawing of Grid B"></p>
 
-  <h2>Grid A using CSS </h2>
+  <h2>Grid A using CSS</h2>
   <div class="GridA">
     <div>A1</div>
-    <div class="span-2">A2 </div>
+    <div class="span-2">A2 (spans 2)</div>
     <div>A3</div>
     <div>A4</div>
     <div>A5</div>
@@ -66,7 +67,7 @@
     <div>A8</div>
   </div>
 
-  <h2>Grid B using CSS </h2>
+  <h2>Grid B using CSS</h2>
   <div class="GridB">
     <div class="header">Header</div>
     <div class="main">Main</div>
