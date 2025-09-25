@@ -1,12 +1,40 @@
-/* --- NAVIGATION GRID --- */
+/* --- Variables (colors) --- */
+:root {
+  --ink: #222;
+  --muted: #555;
+  --accent: #0a58ca;
+  --bg: #fff;
+}
+
+/* --- Base styles --- */
+html {
+  scroll-behavior: smooth; /* new CSS property */
+}
+body {
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  margin: 16px;
+  line-height: 1.6;
+}
+h1 {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.5rem;
+  margin: 0 0 8px;
+}
+p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+/* --- Nav Grid --- */
 .main-nav {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* evenly spaced nav items */
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   margin: 16px 0;
   text-align: center;
 }
-
 .main-nav a {
   color: var(--accent);
   text-decoration: none;
@@ -18,7 +46,17 @@
   background: rgba(10,88,202,0.12);
 }
 
-/* --- GRID A: Characters in 2-column cards --- */
+/* --- Section spacing --- */
+.section {
+  margin: 24px 0;
+}
+.section h2 {
+  margin-bottom: 8px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+/* --- Grid A: Characters --- */
 .characters-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -30,10 +68,10 @@
   padding: 12px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* --- GRID B: Adventures in 3 columns --- */
+/* --- Grid B: Adventures --- */
 .adventures-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -41,132 +79,43 @@
 }
 .adventures-grid div {
   background: #f4f8ff;
+  border: 1px solid #cddff8;
   padding: 14px;
   border-radius: 6px;
   text-align: center;
-  border: 1px solid #cddff8;
 }
 
-/* --- GRID C: Your existing Gallery --- */
+/* --- Grid C: Gallery --- */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   align-items: start;
 }
-
-/* --- RESPONSIVE BREAKPOINT --- */
-@media (max-width: 768px) {
-  /* Nav becomes vertical on mobile */
-  .main-nav {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-  .main-nav a {
-    text-align: left;
-    padding: 10px;
-  }
-}
-
-/* --- Variables (for easy colors) --- */
-:root {
-  --ink: #222;
-  --muted: #555;
-  --accent: #0a58ca;
-  --bg: #fff;
-}
-
-/* --- Base styles --- */
-html {
-  scroll-behavior: smooth;   /* rubric: new CSS property */
-}
-
-body {
-  font-family: "Inter", Arial, sans-serif; /* custom font */
-  color: var(--ink);
-  background: var(--bg);
-  margin: 16px;
-  line-height: 1.5;
-}
-
-/* --- Tag selectors (rubric requires at least 2) --- */
-h1 {
-  font-family: "Great Vibes", cursive;
-  font-size: 2.5rem;
-  font-weight: normal;
-  margin: 0 0 8px;
-}
-
-p { 
-  margin: 0 0 12px; 
-  color: var(--muted); 
-}
-
-/* --- Navigation --- */
-.main-nav {
-  margin: 12px 0;
-}
-
-.main-nav a {
-  color: var(--accent);
-  text-decoration: none;     /* remove underline */
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-}
-
-.main-nav a:hover {
-  background: rgba(10,88,202,0.12); /* hover effect */
-}
-
-/* --- Sections --- */
-.section { 
-  margin: 24px 0; 
-}
-
-.section h2 {
-  margin-bottom: 8px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 4px;
-}
-
-/* --- Gallery --- */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  align-items: start;
-}
-
-/* Each gallery tile */
 .gallery figure {
   margin: 0;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   transition: transform .12s ease, box-shadow .12s ease;
 }
-
 .gallery img {
   width: 100%;
-  aspect-ratio: 4 / 5;   /* new property: makes uniform tiles */
+  aspect-ratio: 4 / 5; /* new property */
   object-fit: cover;
   display: block;
 }
-
 .gallery figcaption {
   padding: 8px 10px;
   text-align: center;
   font-style: italic;
   color: #333;
 }
-
-/* Subtle hover effect */
 .gallery figure:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,.10);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
 }
 
 /* --- Footer --- */
@@ -175,4 +124,16 @@ footer {
   font-size: 0.9rem;
   color: var(--muted);
   text-align: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .main-nav {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .main-nav a {
+    text-align: left;
+    padding: 10px;
+  }
 }
