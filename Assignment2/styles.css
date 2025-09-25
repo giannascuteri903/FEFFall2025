@@ -1,7 +1,72 @@
-/* ================================
-   Assignment 2 - Stylesheet
-   Princess Bella Story Website
-   ================================ */
+/* --- NAVIGATION GRID --- */
+.main-nav {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* evenly spaced nav items */
+  gap: 8px;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.main-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.main-nav a:hover {
+  background: rgba(10,88,202,0.12);
+}
+
+/* --- GRID A: Characters in 2-column cards --- */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.characters-grid article {
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+/* --- GRID B: Adventures in 3 columns --- */
+.adventures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.adventures-grid div {
+  background: #f4f8ff;
+  padding: 14px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #cddff8;
+}
+
+/* --- GRID C: Your existing Gallery --- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* --- RESPONSIVE BREAKPOINT --- */
+@media (max-width: 768px) {
+  /* Nav becomes vertical on mobile */
+  .main-nav {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .main-nav a {
+    text-align: left;
+    padding: 10px;
+  }
+}
 
 /* --- Variables (for easy colors) --- */
 :root {
