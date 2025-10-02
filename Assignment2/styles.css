@@ -149,3 +149,12 @@ footer {
   transform: scale(1.05);
   transition: all 0.3s ease;
 }
+
+/* Light pink background for title */
+header h1 {
+  background: #ffd6e7;   /* light pink */
+  display: inline-block; /* only wraps the text */
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
