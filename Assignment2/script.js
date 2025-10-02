@@ -9,14 +9,15 @@ const adventuresTitle = adventures?.querySelector("h2");
 
 if (adventures && adventuresTitle) {
   adventures.addEventListener("mouseover", () => {
-    adventuresTitle.innerHTML = `<span style="font-family: 'Great Vibes', cursive;">✨ Magical Adventures ✨</span>`;
+    adventuresTitle.textContent = "✨ Magical Adventures ✨";
+    adventuresTitle.classList.add("fancy-title");
   });
 
   adventures.addEventListener("mouseout", () => {
-    adventuresTitle.innerHTML = "Some More of Princess Bella's Adventures";
+    adventuresTitle.textContent = "Some More of Princess Bella's Adventures";
+    adventuresTitle.classList.remove("fancy-title");
   });
 }
-
 
 //Toggle gallery border on click
 document.querySelector("#images").addEventListener("click", () => {

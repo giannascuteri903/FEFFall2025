@@ -140,7 +140,7 @@ footer {
 
 /* --- JavaScript --- */
 .magic-bg {
-  background: linear-gradient(to bottom right, #fff0f6, #e0f7fa);
+  background: linear-gradient(to bottom right, #b7c8f5, #e0f7fa);
   transition: background 0.6s ease;
 }
 
@@ -163,15 +163,16 @@ header h1 {
   background: #ffe6f2;
   border: 1px solid #ff99cc;
   color: #060606;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 14px 20px;   
+  font-size: 1.2rem;    
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .btn:hover {
   background: #ffb3d9;
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 /* Wish result line */
@@ -179,4 +180,15 @@ header h1 {
   margin-top: 10px;
   font-style: italic;
   color: #444;
+}
+
+/* Magical Adventures */
+.fancy-title {
+  font-family: "Great Vibes", cursive;
+  font-size: 2rem; /* make it bigger than normal */
+  color: #d63384;  /* optional: magical pink */
+  transition: transform 0.2s ease;
+}
+.fancy-title:hover {
+  transform: scale(1.1); /* subtle zoom effect */
 }
