@@ -17,3 +17,20 @@ document.querySelector("#images").addEventListener("click", () => {
     fig.classList.toggle("highlight");
   });
 });
+
+//"Make a Wish" 
+const wishes = [
+  "A meadow that blooms all year 🌼",
+  "Endless riddles to make everyone laugh 🤭",
+  "A feather that writes stories in the sky 🪶",
+  "Moonlight that glows in your pocket 🌙",
+  "A crown of flowers that never wilts 🌸"
+];
+
+const wishBtn = document.getElementById("wishBtn");
+const wishResult = document.getElementById("wishResult");
+
+wishBtn?.addEventListener("click", () => {
+  const choice = wishes[Math.floor(Math.random() * wishes.length)];
+  wishResult.innerHTML = `Your wish drifts into the cave: <strong>${choice}</strong>`;
+});

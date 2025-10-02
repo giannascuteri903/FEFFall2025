@@ -158,3 +158,25 @@ header h1 {
   border-radius: 12px;
 }
 
+/* Wish button */
+.btn {
+  background: #ffe6f2;
+  border: 1px solid #ff99cc;
+  color: #a6005c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn:hover {
+  background: #ffb3d9;
+  transform: scale(1.05);
+}
+
+/* Wish result line */
+.wish-line {
+  margin-top: 10px;
+  font-style: italic;
+  color: #444;
+}
