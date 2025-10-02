@@ -145,10 +145,12 @@ footer {
 }
 
 .highlight {
-  border: 3px solid hotpink;
-  transform: scale(1.05);
-  transition: all 0.3s ease;
+  border: 6px solid hotpink;  
+  box-shadow: 0 0 15px hotpink; /* glowing pink shadow */
+  transform: scale(1.1);
+  transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 /* Light pink background for title */
 header h1 {
