@@ -187,7 +187,7 @@ header h1 {
 /* Magical Adventures */
 .fancy-title {
   font-family: "Great Vibes", cursive;
-  font-size: 2rem; /* make it bigger than normal */
+  font-size: 3rem; /* make it bigger than normal */
   color: #d63384;  /* optional: magical pink */
   transition: transform 0.1s ease;
 }
