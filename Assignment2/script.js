@@ -3,13 +3,20 @@ document.querySelector("header").addEventListener("click", () => {
   document.body.classList.toggle("magic-bg");
 });
 
-//Change Adventures text when hovering
-document.querySelector("#adventures").addEventListener("mouseover", () => {
-  document.querySelector("#adventures h2").innerHTML = "✨ Magical Adventures ✨";
-});
-document.querySelector("#adventures").addEventListener("mouseout", () => {
-  document.querySelector("#adventures h2").innerHTML = "Some More of Princess Bella's Adventures";
-});
+// Change Adventures text when hovering
+const adventures = document.querySelector("#adventures");
+const adventuresTitle = adventures?.querySelector("h2");
+
+if (adventures && adventuresTitle) {
+  adventures.addEventListener("mouseover", () => {
+    adventuresTitle.innerHTML = `<span style="font-family: 'Great Vibes', cursive;">✨ Magical Adventures ✨</span>`;
+  });
+
+  adventures.addEventListener("mouseout", () => {
+    adventuresTitle.innerHTML = "Some More of Princess Bella's Adventures";
+  });
+}
+
 
 //Toggle gallery border on click
 document.querySelector("#images").addEventListener("click", () => {

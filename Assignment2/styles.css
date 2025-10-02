@@ -152,7 +152,7 @@ footer {
 
 /* Light pink background for title */
 header h1 {
-  background: #f7d6ff;   /* light pink */
+  background: #ffe6f2;   /* light pink */
   display: inline-block; /* only wraps the text */
   padding: 10px 14px;
   border-radius: 12px;
@@ -162,7 +162,7 @@ header h1 {
 .btn {
   background: #ffe6f2;
   border: 1px solid #ff99cc;
-  color: #a6005c;
+  color: #060606;
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
