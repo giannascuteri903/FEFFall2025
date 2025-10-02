@@ -140,7 +140,7 @@ footer {
 
 /* --- JavaScript --- */
 .magic-bg {
-  background: linear-gradient(to bottom right, #b7c8f5, #e0f7fa);
+  background: linear-gradient(to bottom right, #6b8dea, #e0f7fa);
   transition: background 0.6s ease;
 }
 
