@@ -140,7 +140,7 @@ footer {
 
 /* --- JavaScript --- */
 .magic-bg {
-  background: linear-gradient(to bottom right, #6b8dea, #e0f7fa);
+  background: linear-gradient(to bottom right, #daedf5, #ffe4f3);
   transition: background 0.6s ease;
 }
 
@@ -191,6 +191,4 @@ header h1 {
   color: #d63384;  /* optional: magical pink */
   transition: transform 0.1s ease;
 }
-.fancy-title:hover {
-  transform: scale(1.1); /* subtle zoom effect */
-}
+
