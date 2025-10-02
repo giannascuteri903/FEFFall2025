@@ -19,9 +19,10 @@ if (adventures && adventuresTitle) {
   });
 }
 
-//Toggle gallery border on click
-document.querySelector("#images").addEventListener("click", () => {
-  document.querySelectorAll(".gallery figure").forEach(fig => {
+// Toggle highlight per-image instead of all at once
+document.querySelectorAll(".gallery figure").forEach(fig => {
+  fig.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevents bubbling
     fig.classList.toggle("highlight");
   });
 });

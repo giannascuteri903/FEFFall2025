@@ -144,13 +144,13 @@ footer {
   transition: background 0.6s ease;
 }
 
-.highlight {
-  border: 6px solid hotpink;  
-  box-shadow: 0 0 15px hotpink; /* glowing pink shadow */
+/* Highlight gallery figures */
+.gallery figure.highlight {
+  border: 6px solid hotpink;
+  box-shadow: 0 0 15px hotpink;
   transform: scale(1.1);
   transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
-
 
 /* Light pink background for title */
 header h1 {
@@ -189,7 +189,7 @@ header h1 {
   font-family: "Great Vibes", cursive;
   font-size: 2rem; /* make it bigger than normal */
   color: #d63384;  /* optional: magical pink */
-  transition: transform 0.2s ease;
+  transition: transform 0.1s ease;
 }
 .fancy-title:hover {
   transform: scale(1.1); /* subtle zoom effect */
