@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>City Bites — NYC & Miami</title>
+  <meta name="description" content="Cute & clever personal guide to restaurants I've tried in New York City and Miami" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="brand" role="banner">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>City Bites</h1>
+          <p class="tagline">cute & clever eats in NYC + Miami</p>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul class="nav-grid">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#nyc">NYC Picks</a></li>
+          <li><a href="#miami">Miami Picks</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="welcome-title">
+      <div>
+        <h2 id="welcome-title">Welcome to City Bites</h2>
+        <p>My tiny tour of tasty places I’ve tried in two favorite cities. Pick a tab, tap a photo, or hit “Surprise Me” to jump to a random bite!</p>
+        <div class="cta-row">
+          <button class="btn" id="surpriseBtn" type="button">🎲 Surprise Me</button>
+          <a class="btn secondary" href="#gallery">📸 Open Gallery</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs (Interactive Element #1) -->
+    <div class="tabs" role="tablist" aria-label="City tabs">
+      <button class="tab-btn" role="tab" aria-selected="true" aria-controls="nyc" id="tab-nyc">🗽 NYC</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="miami" id="tab-miami">🌴 Miami</button>
+    </div>
+
+    <!-- NYC Grid (Gridded Section #1) -->
+    <section id="nyc" role="tabpanel" aria-labelledby="tab-nyc">
+      <h3>NYC Picks</h3>
+      <p class="sr">Cards below show spots I’ve visited in NYC.</p>
+      <div class="cards-grid">
+        <!-- Card 1 -->
+        <article class="card" data-city="nyc">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" alt="Neon ramen shop bowl with chopsticks" data-full="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Midnight Ramen</h4>
+              <span class="pill">East Village</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Midnight Ramen">♡</button>
+          </div>
+          <p>Cozy bowls, loud playlists, and a 10/10 broth. Late-night lifesaver.</p>
+          <div class="badge">no reservations</div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" data-city="nyc">
+          <img src="https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=1200&auto=format&fit=crop" alt="Thin crust pizza slice on a paper plate" data-full="https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Alley Slice</h4>
+              <span class="pill">SoHo</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Alley Slice">♡</button>
+          </div>
+          <p>Super thin, super crispy, foldable perfection. Paper plate energy.</p>
+          <div class="badge">cash preferred</div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" data-city="nyc">
+          <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=1200&auto=format&fit=crop" alt="Cute cafe latte art with croissant" data-full="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Wander Cafe</h4>
+              <span class="pill">Williamsburg</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Wander Cafe">♡</button>
+          </div>
+          <p>Window seats, flaky pastries, and lattes with little hearts. A vibe.</p>
+          <div class="badge">pet friendly</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Miami Grid (Gridded Section #2) -->
+    <section id="miami" role="tabpanel" aria-labelledby="tab-miami" hidden>
+      <h3>Miami Picks</h3>
+      <div class="cards-grid">
+        <!-- Card 4 -->
+        <article class="card" data-city="miami">
+          <img src="https://images.unsplash.com/photo-1546549039-49e5edc3b4c6?q=80&w=1200&auto=format&fit=crop" alt="Fresh mahi tacos with lime" data-full="https://images.unsplash.com/photo-1546549039-49e5edc3b4c6?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Sunset Tacos</h4>
+              <span class="pill">Wynwood</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Sunset Tacos">♡</button>
+          </div>
+          <p>Citrus-y fish tacos and colorful walls outside. Sunshine on a plate.</p>
+          <div class="badge">outdoor seating</div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card" data-city="miami">
+          <img src="https://images.unsplash.com/photo-1528697203043-733bfdcaad02?q=80&w=1200&auto=format&fit=crop" alt="Berry-topped pancakes at brunch" data-full="https://images.unsplash.com/photo-1528697203043-733bfdcaad02?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Brunch Bungalow</h4>
+              <span class="pill">Coconut Grove</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Brunch Bungalow">♡</button>
+          </div>
+          <p>Fluffy pancakes, iced coffee heaven, and a leafy patio you’ll never leave.</p>
+          <div class="badge">gluten-free options</div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card" data-city="miami">
+          <img src="https://images.unsplash.com/photo-1541542684-a060e3d7e560?q=80&w=1200&auto=format&fit=crop" alt="Colorful acai bowl with fruit" data-full="https://images.unsplash.com/photo-1541542684-a060e3d7e560?q=80&w=2000&auto=format&fit=crop" />
+          <div class="meta">
+            <div>
+              <h4>Bowls & Beach</h4>
+              <span class="pill">South Beach</span>
+            </div>
+            <button class="fav-btn" aria-pressed="false" aria-label="Favorite Bowls & Beach">♡</button>
+          </div>
+          <p>Acai bowls that taste like vacation. Sand not included (sadly).</p>
+          <div class="badge">takeaway friendly</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Image Gallery (Interactive Element #2) -->
+    <section id="gallery" aria-labelledby="gallery-title" style="margin-top:2rem">
+      <h3 id="gallery-title">Quick Gallery</h3>
+      <p>Tap any card image to open a bigger view. Use the × to close.</p>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <dialog class="lightbox" aria-label="Image viewer" id="lightbox">
+    <button class="btn secondary close" type="button" aria-label="Close viewer">× Close</button>
+    <figure>
+      <img id="lightboxImg" src="" alt="Expanded restaurant photo" />
+      <figcaption id="lightboxCaption" style="color:#fff;margin-top:.5rem;text-align:center"></figcaption>
+    </figure>
+  </dialog>
+
+  <footer class="container">
+    <p>Made with ♥ for an assignments-friendly starter. Replace names with your real spots later!</p>
+  </footer>
+
+  <script defer src="script.js"></script>
+</body>
+</html>
