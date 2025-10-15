@@ -105,7 +105,8 @@ a:hover {
 }
 
 .nav-grid a:hover {
-  background: #f5f5f5;          
+  --accent: #c5a572;         /* muted gold accent */
+  background: #c5a572;          
   color: var(--ink);            
   border-color: var(--ink);    
 }
