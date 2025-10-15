@@ -1,3 +1,2 @@
-document.getElementById("clickMe").addEventListener("click", () => {
-  alert("Your site is live and JavaScript works!");
-});
+// Phase 1: minimal JS—just set footer year so the file loads cleanly.
+document.getElementById('year').textContent = new Date().getFullYear();

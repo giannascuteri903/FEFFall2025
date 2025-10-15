@@ -2,14 +2,115 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Test Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>City Bites — NYC & Miami</title>
+    <meta name="description" content="Gianna's cute & clever restaurant picks in NYC and Miami." />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Hello, GitHub Pages!</h1>
-    <p>If you see this text, your site is working 🎉</p>
-    <button id="clickMe">Click me!</button>
+    <!-- Header + Gridded Nav -->
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>City Bites</h1>
+            <p class="tagline">cute & clever eats in NYC + Miami</p>
+          </div>
+        </div>
+
+        <nav aria-label="Primary">
+          <ul class="nav-grid">
+            <li><a href="#top">Home</a></li>
+            <li><a href="#nyc">NYC Picks</a></li>
+            <li><a href="#miami">Miami Picks</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top" class="container">
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="welcome-title">
+        <div>
+          <h2 id="welcome-title">Welcome to City Bites</h2>
+          <p>My tiny tour of tasty places I’ve tried in two favorite cities. Photos are placeholders—I'll swap in my own later.</p>
+        </div>
+      </section>
+
+      <!-- Gridded Section #1: NYC -->
+      <section id="nyc" aria-labelledby="nyc-title">
+        <h3 id="nyc-title">NYC Picks</h3>
+        <div class="cards-grid">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" alt="Ramen bowl in neon-lit shop" />
+            <div class="meta">
+              <h4>Midnight Ramen</h4>
+              <span class="pill">East Village</span>
+            </div>
+            <p class="desc">Cozy bowls and a 10/10 broth.</p>
+            <div class="badge">late night</div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=1200&auto=format&fit=crop" alt="Crispy pizza slice on paper plate" />
+            <div class="meta">
+              <h4>Alley Slice</h4>
+              <span class="pill">SoHo</span>
+            </div>
+            <p class="desc">Super thin, super crispy.</p>
+            <div class="badge">cash preferred</div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=1200&auto=format&fit=crop" alt="Latte art and croissant" />
+            <div class="meta">
+              <h4>Wander Cafe</h4>
+              <span class="pill">Williamsburg</span>
+            </div>
+            <p class="desc">Window seats & flaky pastries.</p>
+            <div class="badge">pet friendly</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Gridded Section #2: Miami -->
+      <section id="miami" aria-labelledby="miami-title">
+        <h3 id="miami-title">Miami Picks</h3>
+        <div class="cards-grid">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1546549039-49e5edc3b4c6?q=80&w=1200&auto=format&fit=crop" alt="Fish tacos with lime" />
+            <div class="meta">
+              <h4>Sunset Tacos</h4>
+              <span class="pill">Wynwood</span>
+            </div>
+            <p class="desc">Citrus-y mahi + colorful walls.</p>
+            <div class="badge">outdoor seating</div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1528697203043-733bfdcaad02?q=80&w=1200&auto=format&fit=crop" alt="Berry pancakes and coffee" />
+            <div class="meta">
+              <h4>Brunch Bungalow</h4>
+              <span class="pill">Coconut Grove</span>
+            </div>
+            <p class="desc">Fluffy stacks, iced coffee heaven.</p>
+            <div class="badge">gluten-free</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Simple gallery anchor for later JS -->
+      <section id="gallery" aria-labelledby="gallery-title">
+        <h3 id="gallery-title">Gallery</h3>
+        <p>We’ll upgrade this into a lightbox in Phase 2.</p>
+      </section>
+    </main>
+
+    <footer class="container">
+      <p>&copy; <span id="year"></span> City Bites by Gianna</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
