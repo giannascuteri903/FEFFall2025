@@ -1,4 +1,4 @@
-// Footer year
+// Footer Year
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // Tabs
@@ -14,11 +14,8 @@ function switchTab(city) {
   miami.hidden = !isMiami;
   nyc.hidden = isMiami;
 }
-
-if (tabNYC && tabMIA) {
-  tabMIA.addEventListener("click", () => switchTab("miami"));
-  tabNYC.addEventListener("click", () => switchTab("nyc"));
-}
+tabMIA?.addEventListener("click", () => switchTab("miami"));
+tabNYC?.addEventListener("click", () => switchTab("nyc"));
 
 // Lightbox
 const lightbox = document.getElementById("lightbox");
@@ -32,22 +29,29 @@ document.addEventListener("click", (e) => {
     lightboxCaption.textContent = img.alt;
     lightbox.showModal();
   }
-  if (e.target.matches(".lightbox-close")) {
-    lightbox.close();
-  }
+  if (e.target.matches(".lightbox-close")) lightbox.close();
 });
 
-// Surprise Me
-const surprise = document.getElementById("surpriseBtn");
-if (surprise) {
-  surprise.addEventListener("click", () => {
-    const cards = Array.from(document.querySelectorAll("article.card"));
-    const pick = cards[Math.floor(Math.random() * cards.length)];
-    const isMiami = pick.closest("#miami");
-    switchTab(isMiami ? "miami" : "nyc");
-    pick.scrollIntoView({ behavior: "smooth", block: "center" });
-    pick.animate([{ transform: "scale(1)" }, { transform: "scale(1.03)" }, { transform: "scale(1)" }], {
-      duration: 600,
-    });
-  });
+// Spotlight Carousel
+const track = document.querySelector(".carousel-track");
+const slides = Array.from(track.querySelectorAll("img"));
+const nextBtn = document.querySelector(".carousel-btn.next");
+const prevBtn = document.querySelector(".carousel-btn.prev");
+let current = 0;
+
+function updateCarousel(index) {
+  slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
 }
+
+nextBtn?.addEventListener("click", () => {
+  current = (current + 1) % slides.length;
+  updateCarousel(current);
+});
+prevBtn?.addEventListener("click", () => {
+  current = (current - 1 + slides.length) % slides.length;
+  updateCarousel(current);
+});
+setInterval(() => {
+  current = (current + 1) % slides.length;
+  updateCarousel(current);
+}, 5000);
