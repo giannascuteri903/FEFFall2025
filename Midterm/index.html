@@ -2,89 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> Chic City Eats — NYC & Miami</title>
-    <meta name="description" content="Gianna's favorite bites in NYC and Miami." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chic City Eats</title>
+    <meta name="description" content="An ultra-modern restaurant showcase highlighting the best eats in Miami and NYC." />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <!-- Header + Gridded Nav -->
+    <!-- Header -->
     <header class="site-header">
       <div class="container">
         <div class="brand">
-          <div>
-            <h1>Chic City Eats</h1>
-            <p class="tagline">My Favorite Bites of NYC & Miami</p>
-          </div>
+          <h1>Chic City Eats</h1>
+          <p class="tagline">modern. refined. delicious.</p>
         </div>
 
-        <nav aria-label="Primary">
+        <!-- Gridded Nav -->
+        <nav aria-label="Main navigation">
           <ul class="nav-grid">
-            <li><a href="#top">Home</a></li>
-            <li><a href="#nyc">NYC</a></li>
+            <li><a href="#home">Home</a></li>
             <li><a href="#miami">Miami</a></li>
             <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#about">About</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <main id="top" class="container">
-      <!-- Hero -->
-      <section class="hero" aria-labelledby="welcome-title">
-        <div>
-          <h2 id="welcome-title">Welcome to Chic City Eats</h2>
-          <p>A glamorous tour of tasty places I’ve tried in my two favorite cities. Photos are placeholders—I'll swap in my own later.</p>
-          <button id="surpriseBtn" class="btn" type="button">Surprise Me</button>
-        </div>
+    <!-- Main -->
+    <main id="home" class="container">
+      <section class="hero">
+        <h2>Welcome to Chic City Eats</h2>
+        <p>
+          A sleek, curated guide to my favorite city dining experiences — elegant
+          spaces, inspired plates, and unforgettable flavors.
+        </p>
+        <button id="surpriseBtn" class="btn">🎲 Surprise Me</button>
       </section>
 
       <!-- Tabs -->
       <div class="tabs" role="tablist" aria-label="City tabs">
-        <button class="tab-btn" role="tab" aria-selected="true" aria-controls="nyc" id="tab-nyc">NYC</button>
-        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="miami" id="tab-miami">Miami</button>
+        <button class="tab-btn" role="tab" aria-selected="true" aria-controls="miami" id="tab-miami">Miami</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="nyc" id="tab-nyc">NYC</button>
       </div>
-
-      <!-- NYC Section -->
-      <section id="nyc" aria-labelledby="nyc-title">
-        <h3 id="nyc-title">NYC Picks</h3>
-        <div class="cards-grid">
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" alt="Ramen bowl in neon-lit shop" />
-            <div class="meta">
-              <h4>Midnight Ramen</h4>
-              <span class="pill">East Village</span>
-            </div>
-            <p class="desc">Cozy bowls and a 10/10 broth.</p>
-            <div class="badge">late night</div>
-          </article>
-
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1541976076758-347942db1970?q=80&w=1200&auto=format&fit=crop" alt="Crispy pizza slice on paper plate" />
-            <div class="meta">
-              <h4>Alley Slice</h4>
-              <span class="pill">SoHo</span>
-            </div>
-            <p class="desc">Super thin, super crispy.</p>
-            <div class="badge">cash preferred</div>
-          </article>
-
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=1200&auto=format&fit=crop" alt="Latte art and croissant" />
-            <div class="meta">
-              <h4>Wander Cafe</h4>
-              <span class="pill">Williamsburg</span>
-            </div>
-            <p class="desc">Window seats & flaky pastries.</p>
-            <div class="badge">pet friendly</div>
-          </article>
-        </div>
-      </section>
 
       <!-- Miami Section -->
       <section id="miami" aria-labelledby="miami-title">
-        <h3 id="miami-title">Miami Pick</h3>
+        <h3 id="miami-title">Miami Picks</h3>
         <div class="cards-grid">
           <article class="card">
             <img src="nobumiami.jpg" alt="Elegant sushi plate at Nobu Miami" />
@@ -92,26 +56,87 @@
               <h4>Nobu Miami</h4>
               <span class="pill">South Beach</span>
             </div>
-            <p class="desc">Chic Japanese-Peruvian fusion by the ocean. Think signature miso cod, sleek interiors, and sunset cocktails.</p>
-            <div class="badge">fine dining</div>
+            <p class="desc">
+              A sleek oceanfront restaurant offering upscale Japanese-Peruvian
+              cuisine in a modern, elegant setting.
+            </p>
+            <div class="badge">Fine Dining</div>
+          </article>
+
+          <article class="card">
+            <img src="mandolin.jpg" alt="Greek courtyard at Mandolin Aegean Bistro" />
+            <div class="meta">
+              <h4>Mandolin Aegean Bistro</h4>
+              <span class="pill">Design District</span>
+            </div>
+            <p class="desc">
+              A charming blue-and-white hideaway serving fresh Mediterranean
+              flavors under twinkling lights.
+            </p>
+            <div class="badge">Mediterranean</div>
           </article>
         </div>
       </section>
 
-      <!-- Simple gallery anchor for later JS -->
+      <!-- NYC Section -->
+      <section id="nyc" aria-labelledby="nyc-title">
+        <h3 id="nyc-title">NYC Picks</h3>
+        <div class="cards-grid">
+          <article class="card">
+            <img src="pastis.jpg" alt="Bistro brunch at Pastis NYC" />
+            <div class="meta">
+              <h4>Pastis</h4>
+              <span class="pill">Meatpacking</span>
+            </div>
+            <p class="desc">
+              Iconic Parisian-style bistro famous for its chic ambiance and
+              timeless French comfort dishes.
+            </p>
+            <div class="badge">Brunch</div>
+          </article>
+
+          <article class="card">
+            <img src="catchnyc.jpg" alt="Seafood dishes at Catch NYC rooftop" />
+            <div class="meta">
+              <h4>Catch NYC</h4>
+              <span class="pill">Meatpacking</span>
+            </div>
+            <p class="desc">
+              A trendy rooftop spot with vibrant seafood, cocktails, and a
+              glamorous city view.
+            </p>
+            <div class="badge">Seafood</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Gallery -->
       <section id="gallery" aria-labelledby="gallery-title">
         <h3 id="gallery-title">Gallery</h3>
-        <p>We’ll upgrade this into a lightbox in Phase 2.</p>
+        <div class="cards-grid">
+          <img src="gallery1.jpg" alt="Miami skyline at night" />
+          <img src="gallery2.jpg" alt="NYC rooftop dinner" />
+          <img src="gallery3.jpg" alt="Candle-lit restaurant interior" />
+          <img src="gallery4.jpg" alt="Plated gourmet dish closeup" />
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about">
+        <h3>About</h3>
+        <p>
+          Chic City Eats blends style and flavor — highlighting refined dining
+          destinations across Miami and New York. Each spot is personally
+          curated for its atmosphere, creativity, and unforgettable experience.
+        </p>
       </section>
     </main>
 
     <footer class="container">
-      <p>&copy; <span id="year"></span> Chic City Eats by Gianna</p>
+      <p>&copy; <span id="year"></span> Chic City Eats by Gianna Scuteri</p>
     </footer>
 
-    <script src="script.js"></script>
-
-    <!-- Lightbox Gallery -->
+    <!-- Lightbox -->
     <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
       <button class="lightbox-close" type="button" aria-label="Close">×</button>
       <figure>
@@ -120,5 +145,6 @@
       </figure>
     </dialog>
 
+    <script src="script.js"></script>
   </body>
 </html>
