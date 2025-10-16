@@ -1,22 +1,6 @@
 // Footer Year
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Tabs
-const tabNYC = document.getElementById("tab-nyc");
-const tabMIA = document.getElementById("tab-miami");
-const nyc = document.getElementById("nyc");
-const miami = document.getElementById("miami");
-
-function switchTab(city) {
-  const isMiami = city === "miami";
-  tabMIA.setAttribute("aria-selected", isMiami);
-  tabNYC.setAttribute("aria-selected", !isMiami);
-  miami.hidden = !isMiami;
-  nyc.hidden = isMiami;
-}
-tabMIA?.addEventListener("click", () => switchTab("miami"));
-tabNYC?.addEventListener("click", () => switchTab("nyc"));
-
 // Lightbox
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
