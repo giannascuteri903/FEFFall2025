@@ -1,7 +1,7 @@
-// Footer Year
+//Footer 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Lightbox
+//Lightbox
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxCaption = document.getElementById("lightboxCaption");
@@ -16,7 +16,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".lightbox-close")) lightbox.close();
 });
 
-// Spotlight Carousel
+//Spotlight Carousel
 const track = document.querySelector(".carousel-track");
 const slides = Array.from(track.querySelectorAll("img"));
 const nextBtn = document.querySelector(".carousel-btn.next");
@@ -40,7 +40,7 @@ setInterval(() => {
   updateCarousel(current);
 }, 5000);
 
-/* ========== Viewer Rating (Spotlight) ========== */
+/* ========== Viewer Rating for Spotlight ========== */
 const rateBtn = document.getElementById('rateBtn');
 const rateDialog = document.getElementById('rateDialog');
 const rateForm = document.getElementById('rateForm');
