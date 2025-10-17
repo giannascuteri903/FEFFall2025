@@ -48,6 +48,11 @@
           Nobu blends iconic flavors with stunning presentation and coastal ambiance. The food, vibe, and service were all exceptional. 
         </p>
 
+        <button id="rateBtn" class="btn rate-cta" aria-label="Rate your visit to Nobu Miami">
+          ★ Rate your visit
+        </button>
+        <div id="rateResult" class="rate-result" aria-live="polite"></div>
+
         <div class="carousel">
           <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
           <div class="carousel-track">
@@ -157,6 +162,37 @@
     <footer class="container">
       <p>&copy; <span id="year"></span> Chic City Eats by Gianna Scuteri</p>
     </footer>
+
+    <!-- Rating Dialog (Viewer rates the Spotlight restaurant) -->
+    <dialog id="rateDialog" class="rate-dialog" aria-label="Rate your visit to Nobu Miami">
+      <form id="rateForm">
+        <h5>Rate your visit to <em>Nobu Miami</em></h5>
+        <p class="rate-hint">This is for viewers to rate — choose 1–5 stars:</p>
+
+        <div class="rate-stars" role="radiogroup" aria-label="Star rating 1 to 5">
+          <!-- Row-reverse so CSS can fill stars to the left -->
+          <input type="radio" id="star5" name="rating" value="5" />
+          <label for="star5" title="5 stars">★</label>
+
+          <input type="radio" id="star4" name="rating" value="4" />
+          <label for="star4" title="4 stars">★</label>
+
+          <input type="radio" id="star3" name="rating" value="3" />
+          <label for="star3" title="3 stars">★</label>
+
+          <input type="radio" id="star2" name="rating" value="2" />
+          <label for="star2" title="2 stars">★</label>
+
+          <input type="radio" id="star1" name="rating" value="1" />
+          <label for="star1" title="1 star">★</label>
+        </div>
+
+        <div class="rate-actions">
+          <button type="button" class="btn" id="rateCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="rateSubmit">Submit rating</button>
+        </div>
+      </form>
+    </dialog>
 
     <!-- Lightbox -->
     <dialog class="lightbox" id="lightbox" aria-label="Image viewer">

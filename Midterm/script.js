@@ -39,3 +39,48 @@ setInterval(() => {
   current = (current + 1) % slides.length;
   updateCarousel(current);
 }, 5000);
+
+/* ========== Viewer Rating (Spotlight) ========== */
+const rateBtn = document.getElementById('rateBtn');
+const rateDialog = document.getElementById('rateDialog');
+const rateForm = document.getElementById('rateForm');
+const rateCancel = document.getElementById('rateCancel');
+const rateSubmit = document.getElementById('rateSubmit');
+const rateResult = document.getElementById('rateResult');
+
+const RATING_KEY = 'rating_nobu_miami';
+
+function starsText(n) {
+  n = Number(n) || 0;
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+function showSavedRating() {
+  const saved = localStorage.getItem(RATING_KEY);
+  if (saved) {
+    rateResult.textContent = `Viewer rating saved: ${starsText(saved)} (${saved}/5)`;
+  }
+}
+
+showSavedRating();
+
+rateBtn?.addEventListener('click', () => {
+  rateDialog?.showModal();
+});
+
+rateCancel?.addEventListener('click', () => {
+  rateDialog?.close();
+});
+
+rateForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const chosen = rateForm.querySelector('input[name="rating"]:checked')?.value;
+  if (!chosen) {
+    alert('Please choose 1–5 stars to rate your visit.');
+    return;
+  }
+  localStorage.setItem(RATING_KEY, chosen);
+  rateDialog.close();
+  // Update inline result below the button
+  rateResult.textContent = `Viewer rating saved: ${starsText(chosen)} (${chosen}/5)`;
+});

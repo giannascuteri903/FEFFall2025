@@ -221,3 +221,64 @@ footer {
   .nav-grid { grid-template-columns: repeat(2, 1fr); }
   .carousel-track img { height: 320px; }
 }
+
+/* ---------- Rate your visit (viewer rating) ---------- */
+.rate-cta { margin-top: .5rem; }
+
+.rate-result {
+  margin-top: .6rem;
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+.rate-dialog {
+  border: none;
+  padding: 0;
+  width: min(92vw, 520px);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.rate-dialog::backdrop { background: rgba(0,0,0,.55); }
+
+#rateForm { padding: 1rem 1.1rem 1.2rem; }
+#rateForm h5 {
+  margin: .2rem 0 .25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+}
+.rate-hint { margin: 0 0 .75rem; color: var(--muted); }
+
+.rate-stars {
+  display: inline-flex;
+  flex-direction: row-reverse; /* enables hover/checked cascade */
+  gap: .25rem;
+  user-select: none;
+}
+.rate-stars input { display: none; }
+.rate-stars label {
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #cfcfcf;              /* unselected stars */
+  transition: color .2s ease, transform .1s ease;
+}
+.rate-stars label:hover,
+.rate-stars label:hover ~ label { color: var(--accent); }
+.rate-stars input:checked ~ label { color: var(--accent); }
+.rate-stars label:active { transform: scale(0.97); }
+
+.rate-actions {
+  display: flex;
+  gap: .5rem;
+  justify-content: flex-end;
+  margin-top: .9rem;
+}
+
+.btn-primary {
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+}
