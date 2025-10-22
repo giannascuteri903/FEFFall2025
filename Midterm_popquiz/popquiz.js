@@ -81,9 +81,9 @@ submitBtn.addEventListener("click", () => {
     }
     if (chosen === current.answer) {
       score++;
-      resultEl.textContent = "✅ Correct!";
+      resultEl.textContent = "Correct!";
     } else {
-      resultEl.textContent = `❌ Incorrect. Correct: ${current.answer}`;
+      resultEl.textContent = `Incorrect. Correct: ${current.answer}`;
     }
     awaitingAnswer = false;
     enableOptions(false);
