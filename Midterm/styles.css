@@ -280,3 +280,75 @@ footer {
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
   color: #fff;
 }
+
+/* Header: clean gradient bar, subtle shrink on scroll */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: padding .2s ease, box-shadow .2s ease, backdrop-filter .2s ease;
+  padding: .75rem 0 .5rem;
+}
+.site-header .brand { padding: 0; }
+.site-header .brand h1 { font-size: 1.4rem; letter-spacing: .5px; }
+.site-header .tagline { color: rgba(255,255,255,.9); font-size: .9rem; }
+
+.site-header.is-scrolled {
+  padding: .4rem 0 .35rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  backdrop-filter: blur(4px);
+}
+
+.nav-grid {
+  margin: .6rem auto .7rem;
+  gap: .5rem;
+}
+.nav-grid a {
+  padding: .45rem .8rem;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 999px;
+  color: #fff;
+}
+.nav-grid a:hover { background: rgba(255,255,255,.15); border-color:#fff; }
+
+.simple-footer {
+  text-align: center;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.simple-footer h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  margin: 0 0 .2rem;
+}
+.simple-footer .tagline {
+  color: rgba(255,255,255,.9);
+  font-size: .9rem;
+  margin: 0 0 .8rem;
+}
+.simple-footer .socials {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: .8rem;
+}
+.simple-footer .socials a {
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 999px;
+  padding: .3rem .7rem;
+  font-size: .9rem;
+  transition: background .2s ease, transform .15s ease;
+}
+.simple-footer .socials a:hover { background: rgba(255,255,255,.15); transform: translateY(-1px); }
+.simple-footer .copyright { font-size: .85rem; color: rgba(255,255,255,.85); }
+
+@media (max-width: 700px) {
+  .site-header .brand h1 { font-size: 1.2rem; }
+  .nav-grid { grid-template-columns: repeat(2, 1fr); }
+}

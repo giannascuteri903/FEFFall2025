@@ -9,25 +9,37 @@
   </head>
 
   <body>
-    <!-- Header -->
-    <header class="site-header">
-      <div class="container">
-        <div class="brand">
-          <h1>Chic City Eats</h1>
-          <p class="tagline">modern. refined. delicious.</p>
-        </div>
 
-        <!-- Gridded Nav -->
-        <nav aria-label="Main navigation">
-          <ul class="nav-grid">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#spotlight">Spotlight</a></li>
-            <li><a href="#miami">Miami</a></li>
-            <li><a href="#nyc">NYC</a></li>
-          </ul>
-        </nav>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-row">
+      <a href="#home" class="monogram" aria-label="Chic City Eats home">CCE</a>
+
+      <div class="brand">
+        <h1>Chic City Eats</h1>
+        <p class="tagline">modern. refined. delicious.</p>
       </div>
-    </header>
+
+      <div class="header-actions" role="group" aria-label="City quick links">
+        <a class="city-chip" href="#miami" aria-label="Jump to Miami picks">Miami</a>
+        <a class="city-chip" href="#nyc" aria-label="Jump to NYC picks">NYC</a>
+      </div>
+    </div>
+
+    <!-- Gridded Nav -->
+    <nav aria-label="Main navigation" class="nav-wrap">
+      <ul class="nav-grid">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#spotlight">Spotlight</a></li>
+        <li><a href="#miami">Miami</a></li>
+        <li><a href="#nyc">NYC</a></li>
+      </ul>
+    </nav>
+
+    <!-- Scroll progress line -->
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  </header>
+
 
     <main id="home" class="container">
     
@@ -159,9 +171,21 @@
 </section>
     </main>
 
-    <footer class="container">
-      <p>&copy; <span id="year"></span> Chic City Eats by Gianna Scuteri</p>
-    </footer>
+    <footer class="simple-footer">
+  <div class="container">
+    <h4>Chic City Eats</h4>
+    <p class="tagline">modern. refined. delicious.</p>
+
+    <div class="socials">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+      <a href="#" aria-label="Pinterest">Pinterest</a>
+    </div>
+
+    <p class="copyright">&copy; <span id="year"></span> Chic City Eats · by Gianna Scuteri</p>
+  </div>
+</footer>
+
 
     <!-- Rating Dialog (Viewer rates the Spotlight restaurant) -->
     <dialog id="rateDialog" class="rate-dialog" aria-label="Rate your visit to Nobu Miami">
