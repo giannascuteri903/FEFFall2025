@@ -41,17 +41,13 @@
     }
 
     #quiz-container{
-      width:min(1080px, 96vw);
-      display:grid;
-      gap:22px;
-      grid-template-rows:auto auto auto auto;
-      padding:30px;
-      background:var(--panel);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:22px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,.45);
-    }
+    width:min(1080px, 96vw);
+    display:grid;
+    gap:22px;
+    grid-template-rows:auto auto auto auto;
+    padding:30px;
+    background:transparent; /* remove dark background layer */
+    }  
 
     header{
       display:flex; align-items:center; gap:14px; flex-wrap:wrap;
