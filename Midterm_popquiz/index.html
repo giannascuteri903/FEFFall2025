@@ -119,9 +119,7 @@
       border:1px solid rgba(255,255,255,.1);
       box-shadow: 0 0 18px rgba(121,215,255,.12), inset 0 0 14px rgba(0,0,0,.4);
     }
-    .thumb img{
-      width:100%; height:100%; object-fit:cover; display:block;
-    }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     #submit{
       justify-self:start;
@@ -146,104 +144,116 @@
       margin-top:40px;
       width:100%;
       max-width:1000px;
+      position:relative;
       overflow:hidden;
       border-radius:20px;
       border:1px solid var(--ring);
       box-shadow:0 10px 40px rgba(0,0,0,0.4);
-      display:flex;
-      justify-content:center;
     }
-
     .carousel-track{
       display:flex;
-      width:500%;
-      animation: slide 25s infinite;
+      transition: transform 0.5s ease;
     }
-
     .carousel img{
       width:100%;
       object-fit:cover;
       aspect-ratio:16/9;
       flex-shrink:0;
     }
-
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      20% { transform: translateX(0); }
-      25% { transform: translateX(-100%); }
-      40% { transform: translateX(-100%); }
-      45% { transform: translateX(-200%); }
-      60% { transform: translateX(-200%); }
-      65% { transform: translateX(-300%); }
-      80% { transform: translateX(-300%); }
-      85% { transform: translateX(-400%); }
-      100% { transform: translateX(-400%); }
+    .carousel button{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,0.2);
+      border:1px solid var(--ring);
+      color:var(--ink);
+      font-size:1.5rem;
+      font-weight:bold;
+      padding:6px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      transition:background 0.2s;
     }
+    .carousel button:hover{background:rgba(255,255,255,0.35);}
+    .carousel .prev{ left:10px; }
+    .carousel .next{ right:10px; }
+    .dots{
+      position:absolute;
+      bottom:12px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:#5b6d8a;
+      border:1px solid #a9cfff55;
+      cursor:pointer;
+      transition:background .2s, transform .2s;
+    }
+    .dot.active{ background:#bfeaff; transform:scale(1.2); }
   </style>
 </head>
 <body>
   <div id="quiz-container">
     <header>
       <h1>Solar System Pop Quiz</h1>
-      <span class="badge">5 questions</span>
     </header>
 
     <div id="question"></div>
 
     <form id="optionsForm">
-      <label>
-        <input type="radio" name="option" value="Mercury">
-        <div class="option-content">
-          <span class="thumb"><img src="images/mercury.jpg" alt="Mercury thumbnail"></span>
-          <span>Mercury</span>
-        </div>
-      </label>
-
-      <label>
-        <input type="radio" name="option" value="Venus">
-        <div class="option-content">
-          <span class="thumb"><img src="images/venus.jpg" alt="Venus thumbnail"></span>
-          <span>Venus</span>
-        </div>
-      </label>
-
-      <label>
-        <input type="radio" name="option" value="Earth">
-        <div class="option-content">
-          <span class="thumb"><img src="images/earth.jpg" alt="Earth thumbnail"></span>
-          <span>Earth</span>
-        </div>
-      </label>
-
-      <label>
-        <input type="radio" name="option" value="Mars">
-        <div class="option-content">
-          <span class="thumb"><img src="images/mars.jpg" alt="Mars thumbnail"></span>
-          <span>Mars</span>
-        </div>
-      </label>
-
-      <label>
-        <input type="radio" name="option" value="Jupiter">
-        <div class="option-content">
-          <span class="thumb"><img src="images/jupiter.jpg" alt="Jupiter thumbnail"></span>
-          <span>Jupiter</span>
-        </div>
-      </label>
+      <label><input type="radio" name="option" value="Mercury"><div class="option-content"><span class="thumb"><img src="images/mercury.jpg" alt="Mercury"></span><span>Mercury</span></div></label>
+      <label><input type="radio" name="option" value="Venus"><div class="option-content"><span class="thumb"><img src="images/venus.jpg" alt="Venus"></span><span>Venus</span></div></label>
+      <label><input type="radio" name="option" value="Earth"><div class="option-content"><span class="thumb"><img src="images/earth.jpg" alt="Earth"></span><span>Earth</span></div></label>
+      <label><input type="radio" name="option" value="Mars"><div class="option-content"><span class="thumb"><img src="images/mars.jpg" alt="Mars"></span><span>Mars</span></div></label>
+      <label><input type="radio" name="option" value="Jupiter"><div class="option-content"><span class="thumb"><img src="images/jupiter.jpg" alt="Jupiter"></span><span>Jupiter</span></div></label>
     </form>
 
     <button id="submit" type="button">Submit</button>
     <div id="result"></div>
   </div>
 
-  <div class="carousel">
+  <div class="carousel" id="carousel">
     <div class="carousel-track">
-      <img src="carousel/space_image1.jpg" alt="Space placeholder 1">
-      <img src="carousel/space_image2.jpg" alt="Space placeholder 2">
-      <img src="carousel/space_image3.jpg" alt="Space placeholder 3">
-      <img src="carousel/space_image4.jpg" alt="Space placeholder 4">
-      <img src="carousel/space_image5.jpg" alt="Space placeholder 5">
+      <img src="carousel/space_image1.jpg" alt="Space 1">
+      <img src="carousel/space_image2.jpg" alt="Space 2">
+      <img src="carousel/space_image3.jpg" alt="Space 3">
+      <img src="carousel/space_image4.jpg" alt="Space 4">
+      <img src="carousel/space_image5.jpg" alt="Space 5">
     </div>
+    <button class="prev">◀</button>
+    <button class="next">▶</button>
+    <div class="dots"></div>
   </div>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    const dotsNav = carousel.querySelector('.dots');
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.dataset.index = i;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsNav.appendChild(dot);
+    });
+    const dots = Array.from(dotsNav.children);
+
+    let index = 0;
+    const goToSlide = (i) => {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, j) => d.classList.toggle('active', j === index));
+    };
+    prevBtn.addEventListener('click', () => goToSlide(index - 1));
+    nextBtn.addEventListener('click', () => goToSlide(index + 1));
+  </script>
 </body>
 </html>
