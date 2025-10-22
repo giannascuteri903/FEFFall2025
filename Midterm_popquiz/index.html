@@ -3,34 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz</title>
+  <title>Solar System Pop Quiz</title>
   <script src="popquiz.js" defer></script>
+
+  <!-- Lightweight space styling + responsive grid -->
+  <style>
+    :root{
+      --space:#0a0f1f;
+      --nebula:#16233f;
+      --panel:#0f172acc;
+      --ring:#2a3a57;
+      --ink:#e8eef8;
+      --muted:#9bb0c8;
+      --accent:#79d7ff;
+      --ok:#22c55e;
+      --no:#ef4444;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100dvh;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(900px 600px at 85% -10%, #4063ff2a, transparent 60%),
+        radial-gradient(900px 600px at 10% 110%, #7600ff24, transparent 60%),
+        linear-gradient(180deg, var(--nebula), var(--space));
+      display:grid;
+      place-items:start center;
+      padding:24px;
+    }
+    /* subtle starfield */
+    body::before{
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(2px 2px at 12% 20%, #fff8 98%, transparent) 0 0/140px 180px,
+        radial-gradient(1.5px 1.5px at 76% 34%, #fffc 98%, transparent) 0 0/200px 220px,
+        radial-gradient(2px 2px at 32% 72%, #fff6 98%, transparent) 0 0/180px 160px,
+        radial-gradient(1px 1px at 56% 12%, #fff9 98%, transparent) 0 0/220px 200px;
+    }
+
+    #quiz-container{
+      position:relative;
+      width:min(980px, 94vw);
+      display:grid;
+      gap:18px;
+      grid-template-rows:auto auto auto auto;
+      padding:26px;
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    header{
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    header .logo{font-size:1.35rem}
+    header h1{margin:0; font-size:clamp(1.2rem, 1rem + 1.2vw, 1.8rem); letter-spacing:.2px}
+    header .badge{
+      color:var(--muted); border:1px solid var(--ring);
+      padding:4px 10px; border-radius:999px; font-size:.85rem;
+    }
+
+    #question{
+      font-size:clamp(1rem, .9rem + .7vw, 1.25rem);
+      line-height:1.45;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--ring);
+      border-radius:14px;
+      padding:16px 18px;
+    }
+
+    /* options grid */
+    #optionsForm{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width: 980px){ #optionsForm{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 620px){ #optionsForm{ grid-template-columns: repeat(2, 1fr); } }
+
+    /* option cards */
+    #optionsForm label{
+      display:grid; grid-template-columns: 22px 1fr;
+      align-items:center; gap:10px;
+      background:linear-gradient(180deg, rgba(8,13,28,.6), rgba(10,16,34,.7));
+      border:1px solid var(--ring);
+      border-radius:14px; padding:10px 12px;
+      cursor:pointer; user-select:none;
+      transition: transform .08s ease, border-color .12s ease, box-shadow .12s ease;
+    }
+    #optionsForm label:hover{
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 6px 22px rgba(121,215,255,.18);
+    }
+    #optionsForm input[type="radio"]{
+      width:18px; height:18px; accent-color: var(--accent); margin:0;
+    }
+
+    .option-content{
+      display:flex; align-items:center; gap:10px; min-width:0;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600;
+    }
+    .thumb{
+      width:44px; height:44px; flex:0 0 44px;
+      border-radius:50%; overflow:hidden; background:#0b1226;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 0 18px rgba(121,215,255,.12), inset 0 0 14px rgba(0,0,0,.4);
+    }
+    .thumb img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    #submit{
+      justify-self:start;
+      background:linear-gradient(180deg, #a7e7ff, #79d7ff);
+      color:#073b55; font-weight:800;
+      border:0; padding:11px 16px; border-radius:12px;
+      cursor:pointer; box-shadow: 0 10px 28px rgba(121,215,255,.35);
+      transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    #submit:hover{ transform: translateY(-1px); filter:saturate(1.05); }
+    #submit:active{ transform: translateY(0); }
+
+    #result{ min-height:26px; font-weight:700 }
+    #result .ok{ color:var(--ok) }
+    #result .no{ color:var(--no) }
+
+    /* focus */
+    :focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:2px;
+      border-radius:12px;
+    }
+  </style>
 </head>
 <body>
   <div id="quiz-container">
+    <header>
+      <div class="logo">🛰️</div>
+      <h1>Solar System Pop Quiz</h1>
+      <span class="badge">5 questions • 1 answer each</span>
+    </header>
+
+    <!-- question injected by JS -->
     <div id="question"></div>
+
+    <!-- SAME radio values your JS expects; swap the img src paths later -->
     <form id="optionsForm">
       <label>
         <input type="radio" name="option" value="Mercury">
-        Mercury
+        <div class="option-content">
+          <span class="thumb"><img src="images/mercury.jpg" alt="Mercury thumbnail"></span>
+          <span>Mercury</span>
+        </div>
       </label>
+
       <label>
         <input type="radio" name="option" value="Venus">
-        Venus
+        <div class="option-content">
+          <span class="thumb"><img src="images/venus.jpg" alt="Venus thumbnail"></span>
+          <span>Venus</span>
+        </div>
       </label>
+
       <label>
         <input type="radio" name="option" value="Earth">
-        Earth
+        <div class="option-content">
+          <span class="thumb"><img src="images/earth.jpg" alt="Earth thumbnail"></span>
+          <span>Earth</span>
+        </div>
       </label>
+
       <label>
         <input type="radio" name="option" value="Mars">
-        Mars
+        <div class="option-content">
+          <span class="thumb"><img src="images/mars.jpg" alt="Mars thumbnail"></span>
+          <span>Mars</span>
+        </div>
       </label>
+
       <label>
         <input type="radio" name="option" value="Jupiter">
-        Jupiter
+        <div class="option-content">
+          <span class="thumb"><img src="images/jupiter.jpg" alt="Jupiter thumbnail"></span>
+          <span>Jupiter</span>
+        </div>
       </label>
     </form>
+
     <button id="submit" type="button">Submit</button>
     <div id="result"></div>
   </div>
