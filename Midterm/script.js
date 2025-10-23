@@ -1,6 +1,3 @@
-//Footer 
-document.getElementById("year").textContent = new Date().getFullYear();
-
 //Lightbox
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightboxImg");
@@ -88,12 +85,4 @@ rateForm?.addEventListener('submit', (e) => {
 // fill footer year
 document.querySelectorAll('#year').forEach(el => el.textContent = new Date().getFullYear());
 
-// tiny header shrink on scroll (no dependencies)
-const header = document.querySelector('.site-header');
-function onScroll() {
-  if (!header) return;
-  header.classList.toggle('is-scrolled', window.scrollY > 8);
-}
-onScroll();
-window.addEventListener('scroll', onScroll);
 
