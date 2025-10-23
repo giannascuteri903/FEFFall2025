@@ -33,17 +33,18 @@ img { display: block; width: 100%; height: auto; border: 0; }
 .container { width: min(1100px, 92%); margin: 0 auto; }
 
 /* ------------------ Header ------------------ */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+.site-header .brand h1 {
+  font-size: 1.9rem;        
+  letter-spacing: 1px;      
+  font-weight: 700;
+  text-transform: uppercase;
 }
-.brand { text-align: center; padding: 1rem 0 .75rem; }
-.brand h1 { text-transform: uppercase; font-weight: 700; }
-.tagline { color: rgba(255,255,255,.9); font-size: .9rem; }
+
+.site-header .tagline {
+  color: rgba(255,255,255,.9);
+  font-size: 1rem;          
+  margin-top: 0.3rem;
+}
 
 /* ------------------ Gridded Nav ------------------ */
 .nav-grid {
