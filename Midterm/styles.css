@@ -129,7 +129,7 @@ img { display: block; width: 100%; height: auto; border: 0; }
 .carousel-btn.prev { left: 10px; }
 .carousel-btn.next { right: 10px; }
 
-/* ------------------ Buttons (generic) ------------------ */
+/* ------------------ Buttons ------------------ */
 .btn {
   border: 1px solid var(--ink);
   background: #fff;
@@ -221,7 +221,21 @@ footer {
 }
 
 /* ---------- Rate your visit (viewer rating) ---------- */
-.rate-cta { margin-top: .5rem; }
+.rate-cta {
+  font-size: 1.05rem;          
+  padding: 0.8rem 1.4rem;      
+  border-width: 2px;           
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.rate-cta:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
 
 .rate-result {
   margin-top: .6rem;
@@ -258,7 +272,7 @@ footer {
   font-size: 1.9rem;
   line-height: 1;
   cursor: pointer;
-  color: #cfcfcf;              /* unselected stars */
+  color: #cfcfcf;              
   transition: color .2s ease, transform .1s ease;
 }
 .rate-stars label:hover,
@@ -281,7 +295,7 @@ footer {
   color: #fff;
 }
 
-/* Header: clean gradient bar, subtle shrink on scroll */
+/* Header */
 .site-header {
   position: sticky;
   top: 0;
