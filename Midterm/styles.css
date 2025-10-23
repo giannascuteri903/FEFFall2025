@@ -46,6 +46,17 @@ img { display: block; width: 100%; height: auto; border: 0; }
   margin-top: 0.3rem;
 }
 
+/* ------------------ Hero  ------------------ */
+.hero { text-align: center; padding: 2.5rem 1.2rem 2rem; }
+.hero h2 { font-size: 1.9rem; font-weight: 700; }
+
+.hero p {
+  font-size: 1.1rem;     
+  max-width: 700px;      
+  margin: 0 auto 1.5rem; 
+  color: var(--muted);   
+  line-height: 1.8;      
+
 /* ------------------ Gridded Nav ------------------ */
 .nav-grid {
   list-style: none;
@@ -72,9 +83,6 @@ img { display: block; width: 100%; height: auto; border: 0; }
   border-color: #fff;
   transform: translateY(-1px);
 }
-
-.hero { text-align: center; padding: 2.5rem 1.2rem 2rem; }
-.hero h2 { font-size: 1.9rem; font-weight: 700; }
 
 /* ------------------ Spotlight Section ------------------ */
 .spotlight { text-align: center; margin: 3rem auto 4rem; }
