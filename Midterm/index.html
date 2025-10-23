@@ -1,232 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chic City Eats</title>
-    <meta name="description" content="An editorial showcase of the most refined dining spots in Miami and NYC." />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chic City Eats</title>
+  <meta name="description" content="An editorial showcase of the most refined dining spots in Miami and NYC." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
   <!-- Header -->
   <header class="site-header" role="banner">
-    <div class="container header-row">
-      <a href="#home" class="monogram" aria-label="Chic City Eats home">CCE</a>
-
+    <div class="container">
       <div class="brand">
         <h1>Chic City Eats</h1>
         <p class="tagline">modern. refined. delicious.</p>
       </div>
 
-      <div class="header-actions" role="group" aria-label="City quick links">
-        <a class="city-chip" href="#miami" aria-label="Jump to Miami picks">Miami</a>
-        <a class="city-chip" href="#nyc" aria-label="Jump to NYC picks">NYC</a>
-      </div>
+      <nav aria-label="Main navigation">
+        <ul class="nav-grid">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#spotlight">Spotlight</a></li>
+          <li><a href="#miami">Miami</a></li>
+          <li><a href="#nyc">NYC</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <!-- Gridded Nav -->
-    <nav aria-label="Main navigation" class="nav-wrap">
-      <ul class="nav-grid">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#spotlight">Spotlight</a></li>
-        <li><a href="#miami">Miami</a></li>
-        <li><a href="#nyc">NYC</a></li>
-      </ul>
-    </nav>
-
-    <!-- Scroll progress line -->
-    <div class="scroll-progress" aria-hidden="true"><span></span></div>
   </header>
 
+  <main id="home" class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <h2 id="hero-title">Welcome to Chic City Eats</h2>
+      <p>
+        A curated collection of my FAVORITE elevated restaurants across Miami and New York — my two FAVORITE cities.
+        Where Cuisine meets Couture. Discover what’s on my radar this month below!
+      </p>
+    </section>
 
-    <main id="home" class="container">
-    
-      <section class="hero">
-        <h2>Welcome to Chic City Eats</h2>
-        <p>
-          A curated collection of my FAVORITE elevated restaurants across Miami and New York — my two FAVORITE cities. Where Cuisine meets Couture.
-          Discover what’s on my radar this month below!
-        </p>
-      </section>
+    <!-- Spotlight -->
+    <section id="spotlight" class="spotlight" aria-labelledby="spotlight-title">
+      <h3 id="spotlight-title">Spotlight Restaurant of the Month</h3>
+      <h4>Nobu Miami</h4>
+      <p class="spotlight-desc">
+        This month I visited the restaurant at the Nobu Hotel. It featured sophisticated Japanese-Peruvian dining on
+        Miami’s glamorous oceanfront. Nobu blends iconic flavors with stunning presentation and coastal ambiance.
+        The food, vibe, and service were all exceptional.
+      </p>
 
-      <!-- Spotlight Section -->
-      <section id="spotlight" class="spotlight">
-        <h3>Spotlight Restaurant of the Month</h3>
-        <h4>Nobu Miami</h4>
-        <p class="spotlight-desc">
-          This month I visited the restaurant at the Nobu Hotel. It featured sophisticated Japanese-Peruvian dining on Miami's glamorous oceanfront.
-          Nobu blends iconic flavors with stunning presentation and coastal ambiance. The food, vibe, and service were all exceptional. 
-        </p>
+      <button id="rateBtn" class="btn rate-cta" aria-haspopup="dialog" aria-controls="rateDialog">
+        ★ Rate your visit
+      </button>
+      <div id="rateResult" class="rate-result" aria-live="polite"></div>
 
-        <button id="rateBtn" class="btn rate-cta" aria-label="Rate your visit to Nobu Miami">
-          ★ Rate your visit
-        </button>
-        <div id="rateResult" class="rate-result" aria-live="polite"></div>
+      <!-- Carousel -->
+      <div class="carousel" aria-label="Nobu Miami photos">
+        <button class="carousel-btn prev" type="button" aria-label="Previous slide">‹</button>
+        <div class="carousel-track">
+          <img src="nobusign.jpeg" alt="Nobu Miami entrance sign" class="active" />
+          <img src="nobumiami.jpg" alt="Sashimi plate at Nobu Miami" />
+          <img src="noburest.jpg" alt="Restaurant dining room at the Nobu Hotel" />
+        </div>
+        <button class="carousel-btn next" type="button" aria-label="Next slide">›</button>
+      </div>
+    </section>
 
-        <div class="carousel">
-          <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
-          <div class="carousel-track">
-            <img src="nobusign.jpeg" alt="Welcome to Nobu Miami" class="active" />
-            <img src="nobumiami.jpg" alt="Sashimi plate at Nobu Miami" />
-            <img src="noburest.jpg" alt="Resturant at the Nobu Hotel" />
+    <!-- Miami -->
+    <section id="miami" aria-labelledby="miami-title">
+      <h3 id="miami-title">Miami Picks</h3>
+      <div class="cards-grid">
+
+        <article class="card">
+          <img src="forte.jpg" alt="Pistachio ice cream tower dessert" />
+          <div class="meta">
+            <h4>Forte dei Marmi</h4>
+            <span class="pill">Miami Beach</span>
           </div>
-          <button class="carousel-btn next" aria-label="Next slide">›</button>
-        </div>
-      </section>
+          <p class="desc">
+            A refined Italian restaurant where Tuscan traditions meet South Beach sophistication.
+            Expect handmade pasta, seasonal truffles, and a serene, candlelit ambiance.
+          </p>
+          <div class="badge">Italian Fine Dining</div>
+        </article>
 
-      <!-- Miami Section -->
-<section id="miami" aria-labelledby="miami-title">
-  <h3 id="miami-title">Miami Picks</h3>
-  <div class="cards-grid">
-    <!-- Forte dei Marmi -->
-    <article class="card">
-      <img src="forte.jpg" alt="Famous Pistachio Ice Cream Tower" />
-      <div class="meta">
-        <h4>Forte dei Marmi</h4>
-        <span class="pill">Miami Beach</span>
+        <article class="card">
+          <img src="cote.jpg" alt="Modern Korean BBQ setup at COTE Miami" />
+          <div class="meta">
+            <h4>COTE</h4>
+            <span class="pill">Design District</span>
+          </div>
+          <p class="desc">
+            Sleek and smoky, this Korean steakhouse redefines BBQ with Wagyu cuts, charcoal grilling,
+            and a moody-chic vibe.
+          </p>
+          <div class="badge">Korean Steakhouse</div>
+        </article>
+
+        <article class="card">
+          <img src="delilah.jpg" alt="American-classic bites from Delilah" />
+          <div class="meta">
+            <h4>Delilah Miami</h4>
+            <span class="pill">Brickell Bay</span>
+          </div>
+          <p class="desc">
+            A lavish supper-club experience blending vintage Hollywood glamour with modern Miami energy.
+          </p>
+          <div class="badge">Supper Club</div>
+        </article>
+
       </div>
-      <p class="desc">
-        A refined Italian restaurant where Tuscan traditions meet South Beach sophistication.
-        Expect handmade pasta, seasonal truffles, and a serene, candlelit ambiance.
-      </p>
-      <div class="badge">Italian Fine Dining</div>
-    </article>
+    </section>
 
-    <!-- COTE -->
-    <article class="card">
-      <img src="cote.jpg" alt="Modern Korean BBQ setup at Kote Miami" />
-      <div class="meta">
-        <h4>COTE</h4>
-        <span class="pill">Design District</span>
-      </div>
-      <p class="desc">
-        Sleek and smoky, this Korean steakhouse redefines BBQ with Wagyu cuts, charcoal grilling, 
-        and a moody-chic vibe.
-      </p>
-      <div class="badge">Korean Steakhouse</div>
-    </article>
+    <!-- NYC -->
+    <section id="nyc" aria-labelledby="nyc-title">
+      <h3 id="nyc-title">NYC Picks</h3>
+      <div class="cards-grid">
 
-    <!-- Delilah -->
-    <article class="card">
-      <img src="delilah.jpg" alt="Some of Delilah's yummiest American-classic bites!" />
-      <div class="meta">
-        <h4>Delilah Miami</h4>
-        <span class="pill">Brickell Bay</span>
-      </div>
-      <p class="desc">
-        A lavish supper-club experience blending vintage Hollywood glamour with modern Miami energy.</p>
-      <div class="badge">Supper Club</div>
-    </article>
-  </div>
-</section>
-
-    <!-- NYC Section -->
-<section id="nyc" aria-labelledby="nyc-title">
-  <h3 id="nyc-title">NYC Picks</h3>
-  <div class="cards-grid">
-    <!-- Rao's -->
-    <article class="card">
-      <img src="raos.jpeg" alt="Classic Italian setting at Rao's NYC" />
-      <div class="meta">
-        <h4>Rao's</h4>
-        <span class="pill">East Harlem</span>
-      </div>
-      <p class="desc">
-        The impossible-to-book legend. Rao’s offers authentic Italian comfort dishes served in
-        an intimate, old-New-York dining room that feels frozen in time.
-      </p>
-      <div class="badge">Italian Icon</div>
-    </article>
-
-    <!-- Carbone -->
-    <article class="card">
-      <img src="carbone.jpg" alt="Carbone's Famous Spicy Vodka Pasta" />
-      <div class="meta">
-        <h4>Carbone</h4>
-        <span class="pill">Greenwich Village</span>
-      </div>
-      <p class="desc">
-        The city’s most stylish red-sauce joint, where spicy rigatoni, tuxedoed waiters,
-        and Rat Pack energy define the modern Italian dining scene. Classic New York vibe!
-      </p>
-      <div class="badge">Italian-American</div>
-    </article>
-
-    <!-- 4 Charles Prime Rib -->
-    <article class="card">
-      <img src="4charles.jpg" alt="10 oz Double Wagyu Cheeseburger" />
-      <div class="meta">
-        <h4>4 Charles Prime Rib</h4>
-        <span class="pill">West Village</span>
-      </div>
-      <p class="desc">
-        A dimly lit hideaway serving NYC's best prime rib, oysters, and burgers.
-        Think mahogany charm, martinis, and steakhouse decadence in the West Village. The Best!
-      </p>
-      <div class="badge">Steakhouse</div>
-    </article>
-  </div>
-</section>
-    </main>
-
-    <footer class="simple-footer">
-  <div class="container">
-    <h4>Chic City Eats</h4>
-    <p class="tagline">modern. refined. delicious.</p>
-
-    <div class="socials">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="#" aria-label="Pinterest">Pinterest</a>
-    </div>
-
-    <p class="copyright">&copy; <span id="year"></span> Chic City Eats · by Gianna Scuteri</p>
-  </div>
-</footer>
-
-
-    <!-- Rating Dialog (Viewer rates the Spotlight restaurant) -->
-    <dialog id="rateDialog" class="rate-dialog" aria-label="Rate your visit to Nobu Miami">
-      <form id="rateForm">
-        <h5>Rate your visit to <em>Nobu Miami</em></h5>
-        <p class="rate-hint">This is for viewers to rate my spotlight resturant of the month!— choose 1–5 stars:</p>
-
-        <div class="rate-stars" role="radiogroup" aria-label="Star rating 1 to 5">
-          <!-- Row-reverse so CSS can fill stars to the left -->
-          <input type="radio" id="star5" name="rating" value="5" />
-          <label for="star5" title="5 stars">★</label>
-
-          <input type="radio" id="star4" name="rating" value="4" />
-          <label for="star4" title="4 stars">★</label>
-
-          <input type="radio" id="star3" name="rating" value="3" />
-          <label for="star3" title="3 stars">★</label>
-
-          <input type="radio" id="star2" name="rating" value="2" />
-          <label for="star2" title="2 stars">★</label>
-
-          <input type="radio" id="star1" name="rating" value="1" />
-          <label for="star1" title="1 star">★</label>
-        </div>
-
-        <div class="rate-actions">
-          <button type="button" class="btn" id="rateCancel">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="rateSubmit">Submit rating</button>
-        </div>
-      </form>
-    </dialog>
-
-    <!-- Lightbox -->
-    <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
-      <button class="lightbox-close" type="button" aria-label="Close">×</button>
-      <figure>
-        <img id="lightboxImg" src="" alt="Expanded restaurant photo" />
-        <figcaption id="lightboxCaption"></figcaption>
-      </figure>
-    </dialog>
-
-    <script src="script.js"></script>
-  </body>
-</html>
+        <article class="card">
+          <img src="raos.jpeg" alt="Classic Italian dini
