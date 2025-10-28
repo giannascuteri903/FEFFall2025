@@ -1,0 +1,7 @@
+
+.uk-navbar-container.uk-background-primary {
+  background: linear-gradient(90deg, #1e87f0, #5bb4ff);
+}
+.uk-logo { font-weight: 700; letter-spacing: .2px; }
+.uk-navbar-nav > li > a { padding: 0 16px; }
+.uk-navbar-sticky { box-shadow: 0 6px 18px rgba(0,0,0,.12); }
