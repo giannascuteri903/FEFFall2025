@@ -1,60 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  My Travel Journal</title>
+  <title>My Travel Journal</title>
+
   <!-- UIKit CSS & JS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/css/uikit.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/css/uikit.min.css">
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit-icons.min.js"></script>
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Your Custom CSS (make sure this file is in the same folder as index.html) -->
   <link rel="stylesheet" href="styles.css">
-
 </head>
+
 <body>
-
-  <!-- Navbar (Component 1) -->
-  <nav class="uk-navbar-container uk-background-primary" 
-     uk-navbar 
-     uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-
-  <div class="uk-container">
-    <div class="uk-navbar-left">
-    <a href="#" class="uk-navbar-item uk-logo">My Travel Journal</a>
+  <!-- ===== NAVBAR ===== -->
+  <nav id="main-nav"
+       class="uk-navbar-container"
+       uk-navbar
+       uk-sticky="animation: uk-animation-slide-top; sel-target: #main-nav; cls-active: uk-navbar-sticky">
+    <div class="uk-container">
+      <div class="uk-navbar-left">
+        <a href="#" class="uk-navbar-item uk-logo">My Travel Journal</a>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Trips</a></li>
+          <li><a href="#">Gallery</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="uk-navbar-right">
-    <ul class="uk-navbar-nav">
-         <li><a href="#">Home</a></li>
-         <li><a href="#">Trips</a></li>
-         <li><a href="#">Gallery</a></li>
-     </ul>
-    </div>
-    </div>
-    </nav>
+  </nav>
 
-  <!-- Hero Section (Component 2) -->
-  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true">
+  <!-- ===== HERO SECTION (SLIDESHOW) ===== -->
+  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true; ratio: 16:9;">
     <ul class="uk-slideshow-items">
-      <li><img src="newyork.jpg" alt="" uk-cover></li>
-      <li><img src="florence.jpg" alt="" uk-cover></li>
-      <li><img src="paris.jpg" alt="" uk-cover></li>
+      <li><img src="newyork.jpg" alt="New York" uk-cover></li>
+      <li><img src="florence.jpg" alt="Florence" uk-cover></li>
+      <li><img src="paris.jpg" alt="Paris" uk-cover></li>
     </ul>
+
     <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
   </div>
 
+  <!-- ===== CONTENT ===== -->
   <div class="uk-section uk-section-muted uk-padding">
     <div class="uk-container">
 
-      <!-- Card (Component 3) -->
+      <!-- Card -->
       <div class="uk-card uk-card-default uk-card-body uk-margin">
         <h3 class="uk-card-title">About My Travels</h3>
         <p>I love exploring new places, capturing photos, and learning about different cultures. Here’s a peek into some of my favorite trips!</p>
       </div>
 
-      <!-- Grid (Component 4) -->
+      <!-- Grid -->
       <div class="uk-grid-small uk-child-width-1-3@s uk-text-center" uk-grid>
         <div>
           <div class="uk-card uk-card-secondary uk-card-body">New York</div>
@@ -70,10 +75,9 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="uk-section uk-section-small uk-text-center uk-text-muted">
+  <!-- ===== FOOTER ===== -->
+  <footer>
     © 2025 My Travel Journal
   </footer>
-
 </body>
 </html>
