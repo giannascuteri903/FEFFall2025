@@ -1,7 +1,52 @@
-
-.uk-navbar-container.uk-background-primary {
-  background: linear-gradient(90deg, #1e87f0, #5bb4ff);
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f8fa;
+  margin: 0;
+  padding-top: 60px; /* makes room for sticky header */
 }
-.uk-logo { font-weight: 700; letter-spacing: .2px; }
-.uk-navbar-nav > li > a { padding: 0 16px; }
-.uk-navbar-sticky { box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+
+/* Navbar background and color */
+.uk-navbar-container.uk-background-primary {
+  background: linear-gradient(90deg, #0077b6, #0096c7, #00b4d8);
+  color: white;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: background 0.4s ease;
+}
+
+.uk-logo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navbar links */
+.uk-navbar-nav > li > a {
+  color: #f0f9ff;
+  font-weight: 500;
+  padding: 0 20px;
+  transition: color 0.3s, background 0.3s;
+  border-radius: 6px;
+}
+
+/* Hover effects */
+.uk-navbar-nav > li > a:hover,
+.uk-navbar-nav > li.uk-active > a {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* Mobile offcanvas menu */
+.uk-offcanvas-bar {
+  background: linear-gradient(180deg, #0077b6, #00b4d8);
+  color: white;
+}
+.uk-offcanvas-bar a {
+  color: #fff;
+  font-weight: 500;
+}
+.uk-offcanvas-bar a:hover {
+  color: #ffeb99;
+}
+
