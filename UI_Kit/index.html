@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Travel Journal</title>
+  <!-- UIKit CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/css/uikit.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit-icons.min.js"></script>
+</head>
+<body>
+
+  <!-- Navbar (Component 1) -->
+  <nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+      <a href="#" class="uk-navbar-item uk-logo">🌍 My Travel Journal</a>
+    </div>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Trips</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section  -->
+  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true">
+    <ul class="uk-slideshow-items">
+      <li><img src="newyork.jpg" alt="" uk-cover></li>
+      <li><img src="florence.jpg" alt="" uk-cover></li>
+      <li><img src="paris.jpg" alt="" uk-cover></li>
+    </ul>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+  </div>
+
+  <div class="uk-section uk-section-muted uk-padding">
+    <div class="uk-container">
+
+      <!-- Card (Component 3) -->
+      <div class="uk-card uk-card-default uk-card-body uk-margin">
+        <h3 class="uk-card-title">About My Travels</h3>
+        <p>I love exploring new places, capturing photos, and tasting local food. Here’s a peek into some of my favorite trips!</p>
+      </div>
+
+      <!-- Grid (Component 4) -->
+      <div class="uk-grid-small uk-child-width-1-3@s uk-text-center" uk-grid>
+        <div>
+          <div class="uk-card uk-card-secondary uk-card-body">New York</div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-secondary uk-card-body">Florence</div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-secondary uk-card-body">Paris</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="uk-section uk-section-small uk-text-center uk-text-muted">
+    © 2025 My Travel Journal
+  </footer>
+
+</body>
+</html>
