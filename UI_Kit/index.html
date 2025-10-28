@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
 
 <head>
   <meta charset="UTF-8">
@@ -11,24 +10,29 @@
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.3/dist/js/uikit-icons.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
- 
+  <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
 
   <!-- Navbar (Component 1) -->
-  <nav class="uk-navbar-container" uk-navbar>
+  <nav class="uk-navbar-container uk-background-primary" 
+     uk-navbar 
+     uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+
+  <div class="uk-container">
     <div class="uk-navbar-left">
-      <a href="#" class="uk-navbar-item uk-logo">My Travel Journal</a>
+    <a href="#" class="uk-navbar-item uk-logo">My Travel Journal</a>
     </div>
     <div class="uk-navbar-right">
-      <ul class="uk-navbar-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Trips</a></li>
-        <li><a href="#">Gallery</a></li>
-      </ul>
+    <ul class="uk-navbar-nav">
+         <li><a href="#">Home</a></li>
+         <li><a href="#">Trips</a></li>
+         <li><a href="#">Gallery</a></li>
+     </ul>
     </div>
-  </nav>
+    </div>
+    </nav>
 
   <!-- Hero Section (Component 2) -->
   <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true">
