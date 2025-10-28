@@ -34,7 +34,6 @@ function getQuestion() {
 
 function renderCurrent() {
   if (!current) {
-    // No more questions: show final score and offer a quick restart
     questionEl.textContent = "Quiz Complete!";
     resultEl.textContent = `Your score: ${score} / 5`;
     formEl.style.display = "none";
@@ -65,9 +64,7 @@ function enableOptions(enabled) {
   inputs.forEach(i => (i.disabled = !enabled));
 }
 
-/* --- Single click handler with minimal logic --- */
 submitBtn.addEventListener("click", () => {
-  // If finished, reuse button as Restart with a simple page reload (minimal code)
   if (!current && submitBtn.textContent === "Restart") {
     location.reload();
     return;
@@ -83,13 +80,13 @@ submitBtn.addEventListener("click", () => {
       score++;
       resultEl.textContent = "Correct!";
     } else {
-      resultEl.textContent = `Incorrect. Correct: ${current.answer}`;
+      resultEl.textContent = "Incorrect.";
     }
+
     awaitingAnswer = false;
     enableOptions(false);
     submitBtn.textContent = qa.length ? "Next" : "See Score";
   } else {
-    // Move to next question (pop again, per your original flow)
     current = getQuestion() || null;
     renderCurrent();
   }
