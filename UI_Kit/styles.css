@@ -5,57 +5,49 @@ body {
   padding-top: 60px; /* makes room for sticky header */
 }
 
-/* Navbar background and color */
-.uk-navbar-container.uk-background-primary {
+/* ===== HEADER / NAVBAR ===== */
+#main-nav {
   background: linear-gradient(90deg, #0077b6, #0096c7, #00b4d8);
-  color: white;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  transition: background 0.4s ease;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
-.uk-logo {
+/* Sticky version */
+#main-nav.uk-navbar-sticky {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(90deg, rgba(0,119,182,0.95), rgba(0,150,199,0.95), rgba(0,180,216,0.95));
+  box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+}
+
+/* Logo and links */
+#main-nav .uk-logo {
   font-size: 1.7rem;
   font-weight: 700;
-  color: #ffffff !important;
-  text-transform: uppercase;
+  color: #fff !important;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-/* Navbar links */
-.uk-navbar-nav > li > a {
+#main-nav .uk-navbar-nav > li > a {
   color: #f0f9ff;
   font-weight: 500;
   padding: 0 20px;
-  transition: color 0.3s, background 0.3s;
   border-radius: 6px;
+  transition: color .25s, background .25s;
 }
 
-/* Hover effects */
-.uk-navbar-nav > li > a:hover,
-.uk-navbar-nav > li.uk-active > a {
-  background-color: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-}
-
-/* Mobile offcanvas menu */
-.uk-offcanvas-bar {
-  background: linear-gradient(180deg, #0077b6, #00b4d8);
-  color: white;
-}
-.uk-offcanvas-bar a {
+#main-nav .uk-navbar-nav > li > a:hover,
+#main-nav .uk-navbar-nav > li.uk-active > a {
+  background: rgba(255,255,255,0.18);
   color: #fff;
-  font-weight: 500;
-}
-.uk-offcanvas-bar a:hover {
-  color: #ffeb99;
 }
 
+/* ===== FOOTER ===== */
 footer {
   background: linear-gradient(90deg, #0077b6, #0096c7, #00b4d8);
   color: #f0f9ff;
   text-align: center;
   padding: 25px 0;
-  font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   letter-spacing: 0.5px;
   border-top: 1px solid rgba(255, 255, 255, 0.25);
