@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chic City Eats | Curated City Dining</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="logo-area">
+      <div class="logo-circle">C</div>
+      <div class="logo-text">
+        <h1>Chic City Eats</h1>
+        <p class="tagline">Curated bites in Miami & NYC</p>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#discover" class="nav-link">Discover</a>
+      <a href="#featured" class="nav-link">Featured</a>
+      <a href="#about" class="nav-link">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero / Search Section -->
+    <section class="hero" id="discover">
+      <div class="hero-content">
+        <h2>Find your next iconic bite.</h2>
+        <p>
+          Filter by city, vibe, and budget — then save your favorite spots for later.
+        </p>
+
+        <form class="filters" id="filters">
+          <div class="filter-group">
+            <label for="search">Search</label>
+            <input
+              type="text"
+              id="search"
+              placeholder="Search by name or city..."
+            />
+          </div>
+
+          <div class="filter-group">
+            <label for="city">City</label>
+            <select id="city">
+              <option value="all">All</option>
+              <option value="Miami">Miami</option>
+              <option value="Miami Beach">Miami Beach</option>
+              <option value="New York">New York</option>
+              <option value="Queens">Queens</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="cuisine">Cuisine</label>
+            <select id="cuisine">
+              <option value="all">All</option>
+              <option value="New American">New American</option>
+              <option value="Italian">Italian</option>
+              <option value="Brunch">Brunch</option>
+              <option value="Fusion">Fusion</option>
+              <option value="Comfort Food">Comfort Food</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Price</span>
+            <div class="price-chips" id="price-chips">
+              <button type="button" data-price="all" class="chip chip--active">$–$$$</button>
+              <button type="button" data-price="$" class="chip">$</button>
+              <button type="button" data-price="$$" class="chip">$$</button>
+              <button type="button" data-price="$$$" class="chip">$$$</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Restaurant Grid -->
+    <section class="section" aria-labelledby="restaurant-heading">
+      <div class="section-header">
+        <h2 id="restaurant-heading">Curated Spots</h2>
+        <p class="section-subtitle">
+          Hand-picked restaurants from your Chic City Eats community.
+        </p>
+      </div>
+
+      <div class="restaurant-grid" id="restaurant-grid">
+        <!-- Cards will be injected by JS -->
+      </div>
+
+      <p class="empty-state" id="empty-state" hidden>
+        No restaurants match your filters (yet). Try adjusting your search.
+      </p>
+    </section>
+
+    <!-- Featured Reviews -->
+    <section class="section section--accent" id="featured">
+      <div class="section-header">
+        <h2>Featured Vibes</h2>
+        <p class="section-subtitle">
+          Standout experiences from real diners.
+        </p>
+      </div>
+
+      <div class="featured-grid">
+        <article class="featured-card">
+          <h3>Miami Date-Night Classic</h3>
+          <p class="featured-meta">Chic City Bites · Miami, FL · New American</p>
+          <p>
+            “Perfect date-night spot. Cozy lighting, sharp service, and a menu
+            that actually feels exciting.”
+          </p>
+        </article>
+
+        <article class="featured-card">
+          <h3>Skyline Cocktails in SoHo</h3>
+          <p class="featured-meta">SoHo Sky Lounge · New York, NY · Fusion</p>
+          <p>
+            “Think rooftop views, polished small plates, and cocktails that look
+            as good as they taste.”
+          </p>
+        </article>
+
+        <article class="featured-card">
+          <h3>Comfort Food Core in Queens</h3>
+          <p class="featured-meta">Queens Comfort Kitchen · Queens, NY · Comfort</p>
+          <p>
+            “Huge portions, no ego. This is where you go when you want a
+            warm, welcoming neighborhood feel.”
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- About section -->
+    <section class="section" id="about">
+      <div class="section-split">
+        <div>
+          <h2>About Chic City Eats</h2>
+          <p>
+            Chic City Eats is a collaborative city dining guide focused on
+            Miami and New York City. Instead of endless lists, you get a curated
+            feed of restaurants actually loved by locals.
+          </p>
+          <p>
+            Soon, you’ll be able to create an account, track your favorite spots,
+            and contribute reviews powered by our shared restaurant database.
+          </p>
+        </div>
+        <div class="about-highlight">
+          <h3>What’s Coming Next</h3>
+          <ul>
+            <li>✨ Log in and save your favorite spots across devices</li>
+            <li>📊 See average ratings based on real reviews</li>
+            <li>🔍 Filter by vibe, neighborhood, and price in real time</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
+
+  <footer class="site-footer">
+    <p>Chic City Eats · Built with ♥ for food lovers</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
