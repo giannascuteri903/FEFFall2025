@@ -1,31 +1,34 @@
-const sequelize = require("./db");
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const sequelize = require('./Models/index');
+const Recipe = require('./Models/Recipe');
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
+app.use(express.static('Public'));
 
-// Test route
-app.get("/", (req, res) => {
-  res.json({ message: "Smart Recipe Book API is running..." });
+// TEST ROUTE
+app.get('/', (req, res) => {
+  res.send("Recipe API is running 🚀");
 });
 
-const PORT = process.env.PORT || 5000;
-
-sequelize.sync().then(() => {
-  console.log("SQLite database synced ✔");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// GET ALL RECIPES
+app.get('/recipes', async (req, res) => {
+  const recipes = await Recipe.findAll();
+  res.json(recipes);
 });
 
-const sequelize = require('./models/index');
-const Recipe = require('./models/Recipe');
+// ADD NEW RECIPE
+app.post('/recipes', async (req, res) => {
+  const recipe = await Recipe.create(req.body);
+  res.json(recipe);
+});
 
+// Sync DB + Start Server
 sequelize.sync().then(() => {
   console.log("Database synced!");
-})
-.catch(err => {
-  console.error("Error syncing DB:", err);
+  app.listen(3000, () => console.log("Server running on http://localhost:3000"));
 });
