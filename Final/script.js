@@ -1,264 +1,300 @@
-// Final/script.js
+// Same-origin API (served from the same port as the page)
+const API_BASE = "";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const restaurantListEl = document.getElementById('restaurant-list');      // cards container
-  const ratingChartCanvas = document.getElementById('ratingChart');         // <canvas> for chart
-  const addSpotForm = document.getElementById('add-spot-form');             // "Add a New Spot" form
-  const reviewForm = document.getElementById('review-form');                // "Drop a Review" form
-  const reviewRestaurantSelect = document.getElementById('review-restaurant-select'); // <select>
-  const statusEl = document.getElementById('status-message');               // optional status text
+// In-memory copies so we can re-render UI easily
+let restaurants = [];
+let reviews = [];
+let ratingChart = null;
 
-  let ratingChart = null;
+// Helper: fetch JSON with error handling
+async function fetchJSON(path, options = {}) {
+  const res = await fetch(API_BASE + path, {
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+    ...options,
+  });
 
-  //
-  // Helper – show quick status messages
-  //
-  function showStatus(message, type = 'info') {
-    if (!statusEl) return;
-    statusEl.textContent = message;
-    statusEl.className = `status status-${type}`;
-    if (message) {
-      setTimeout(() => {
-        statusEl.textContent = '';
-        statusEl.className = 'status';
-      }, 3000);
-    }
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Request failed ${res.status}: ${text}`);
   }
 
-  //
-  // 1. Load restaurants from API and render cards + dropdown
-  //
-  async function loadRestaurants() {
-    try {
-      const res = await fetch('/api/restaurants');
-      const restaurants = await res.json();
-      renderRestaurantList(restaurants);
-      populateRestaurantSelect(restaurants);
-    } catch (err) {
-      console.error('Error loading restaurants:', err);
-      showStatus('Failed to load restaurants.', 'error');
-    }
+  return res.json();
+}
+
+// ---------- DOM HOOKS (make sure these IDs exist in your HTML) ----------
+const els = {};
+
+document.addEventListener("DOMContentLoaded", () => {
+  els.spotsList = document.getElementById("spots-list");              // grid of cards
+  els.reviewsList = document.getElementById("recent-reviews");        // list of reviews
+  els.addSpotForm = document.getElementById("add-spot-form");         // left form
+  els.addReviewForm = document.getElementById("add-review-form");     // right form
+  els.reviewRestaurantSelect = document.getElementById("review-restaurant-select"); // dropdown
+  els.ratingChartCanvas = document.getElementById("ratingChart");     // <canvas>
+
+  setupFormHandlers();
+  loadInitialData();
+});
+
+// ---------- INITIAL LOAD ----------
+async function loadInitialData() {
+  try {
+    await Promise.all([loadRestaurants(), loadReviews()]);
+  } catch (err) {
+    console.error(err);
+    alert("Error loading data from the server. Check the console for details.");
+  }
+}
+
+// ---------- LOAD + RENDER RESTAURANTS ----------
+async function loadRestaurants() {
+  restaurants = await fetchJSON("/api/restaurants");
+  renderRestaurantCards();
+  populateRestaurantSelect();
+}
+
+function renderRestaurantCards() {
+  if (!els.spotsList) return;
+
+  if (!restaurants.length) {
+    els.spotsList.innerHTML = `<p>No spots yet. Be the first to add one!</p>`;
+    return;
   }
 
-  function renderRestaurantList(restaurants) {
-    if (!restaurantListEl) return;
+  els.spotsList.innerHTML = "";
 
-    if (restaurants.length === 0) {
-      restaurantListEl.innerHTML = `
-        <p class="empty-message">No spots yet. Be the first to add one!</p>
-      `;
-      return;
-    }
+  // Sort newest first
+  const sorted = [...restaurants].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
 
-    restaurantListEl.innerHTML = restaurants
-      .map((r) => {
-        const price = r.priceRange || '—';
-        const img = r.imageUrl
-          ? `<div class="card-image" style="background-image:url('${r.imageUrl}')"></div>`
-          : `<div class="card-image card-image-placeholder">No image</div>`;
+  sorted.forEach((r) => {
+    const card = document.createElement("article");
+    card.className = "spot-card";
 
-        return `
-          <article class="restaurant-card">
-            ${img}
-            <div class="restaurant-card-body">
-              <h3 class="restaurant-name">${r.name}</h3>
-              <p class="restaurant-meta">
-                <span>${r.city || 'Unknown city'}</span> • 
-                <span>${r.cuisine || 'Any cuisine'}</span> • 
-                <span class="price-range">${price}</span>
-              </p>
-              <p class="restaurant-created">
-                Added: ${new Date(r.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-          </article>
-        `;
-      })
-      .join('');
+    card.innerHTML = `
+      <div class="spot-card-image">
+        <img src="${r.image_url || "https://via.placeholder.com/400x260?text=Chic+City+Eats"}" 
+             alt="${r.name}">
+      </div>
+      <div class="spot-card-body">
+        <h3>${r.name}</h3>
+        <p class="spot-meta">${r.city} • ${r.cuisine || "Vibes TBD"} • ${
+      r.price_range || "$$"
+    }</p>
+        <p class="spot-creator">Added by ${
+          r.created_by_username || "someone chic"
+        }</p>
+      </div>
+    `;
+
+    els.spotsList.appendChild(card);
+  });
+}
+
+function populateRestaurantSelect() {
+  if (!els.reviewRestaurantSelect) return;
+
+  els.reviewRestaurantSelect.innerHTML = `<option value="">Select</option>`;
+
+  restaurants.forEach((r) => {
+    const opt = document.createElement("option");
+    opt.value = r.id;
+    opt.textContent = r.name;
+    els.reviewRestaurantSelect.appendChild(opt);
+  });
+}
+
+// ---------- LOAD + RENDER REVIEWS ----------
+async function loadReviews() {
+  reviews = await fetchJSON("/api/reviews");
+  renderRecentReviews();
+  updateRatingChart();
+}
+
+function renderRecentReviews() {
+  if (!els.reviewsList) return;
+
+  if (!reviews.length) {
+    els.reviewsList.innerHTML = `<p>No reviews yet. Be the first to drop one!</p>`;
+    return;
   }
 
-  function populateRestaurantSelect(restaurants) {
-    if (!reviewRestaurantSelect) return;
+  els.reviewsList.innerHTML = "";
 
-    reviewRestaurantSelect.innerHTML = '<option value="">Select</option>';
+  // newest first
+  const sorted = [...reviews].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
 
-    restaurants.forEach((r) => {
-      const opt = document.createElement('option');
-      opt.value = r.id;
-      opt.textContent = r.name;
-      reviewRestaurantSelect.appendChild(opt);
+  sorted.forEach((rev) => {
+    const li = document.createElement("li");
+    li.className = "review-item";
+
+    const restaurant = restaurants.find((r) => r.id === rev.restaurant_id);
+
+    li.innerHTML = `
+      <div class="review-header">
+        <span class="review-restaurant">${restaurant?.name || "Unknown spot"}</span>
+        <span class="review-rating">${"★".repeat(
+          rev.rating
+        )}${"☆".repeat(5 - rev.rating)}</span>
+      </div>
+      <div class="review-meta">
+        <span>by ${rev.username || "anonymous foodie"}</span>
+        <span>${new Date(rev.createdAt).toLocaleDateString()}</span>
+      </div>
+      ${
+        rev.review_text
+          ? `<p class="review-text">“${rev.review_text}”</p>`
+          : `<p class="review-text muted">No comments, just vibes.</p>`
+      }
+    `;
+
+    els.reviewsList.appendChild(li);
+  });
+}
+
+// ---------- FORMS (ADD SPOT + ADD REVIEW) ----------
+function setupFormHandlers() {
+  if (els.addSpotForm) {
+    els.addSpotForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await handleAddSpot();
     });
   }
 
-  //
-  // 2. Handle "Add Spot" form -> POST /api/restaurants
-  //
-  async function handleAddSpot(e) {
-    e.preventDefault();
-    showStatus('');
+  if (els.addReviewForm) {
+    els.addReviewForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await handleAddReview();
+    });
+  }
+}
 
-    // ⚠️ Make sure these IDs match your HTML inputs.
-    const usernameInput = document.getElementById('spot-username');
-    const nameInput = document.getElementById('spot-name');
-    const cityInput = document.getElementById('spot-city');
-    const cuisineInput = document.getElementById('spot-cuisine');
-    const priceInput = document.getElementById('spot-price');
-    const imageInput = document.getElementById('spot-image');
+async function handleAddSpot() {
+  const username = document.getElementById("spot-username")?.value.trim();
+  const name = document.getElementById("spot-name")?.value.trim();
+  const city = document.getElementById("spot-city")?.value.trim();
+  const cuisine = document.getElementById("spot-cuisine")?.value.trim();
+  const priceRange = document.getElementById("spot-price")?.value;
+  const imageUrl = document.getElementById("spot-image")?.value.trim();
 
-    const username = usernameInput?.value.trim();
-    const name = nameInput?.value.trim();
-    const city = cityInput?.value.trim();
-    const cuisine = cuisineInput?.value.trim();
-    const priceRange = priceInput?.value;
-    const imageUrl = imageInput?.value.trim();
-
-    if (!name) {
-      showStatus('Please enter a restaurant name.', 'error');
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/restaurants', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, city, cuisine, priceRange, imageUrl }),
-      });
-
-      if (!res.ok) {
-        throw new Error('Bad response from server');
-      }
-
-      await res.json();
-      showStatus('Spot added!', 'success');
-      if (addSpotForm) addSpotForm.reset();
-
-      // Reload restaurants + dropdown
-      await loadRestaurants();
-    } catch (err) {
-      console.error('Error adding restaurant:', err);
-      showStatus('Failed to add spot.', 'error');
-    }
+  if (!username || !name || !city) {
+    alert("Please fill in at least username, restaurant name, and city.");
+    return;
   }
 
-  //
-  // 3. Handle "Submit Review" form -> POST /api/reviews
-  //
-  async function handleAddReview(e) {
-    e.preventDefault();
-    showStatus('');
+  try {
+    const newRestaurant = await fetchJSON("/api/restaurants", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        name,
+        city,
+        cuisine,
+        price_range: priceRange || null,
+        image_url: imageUrl || null,
+      }),
+    });
 
-    // ⚠️ Ensure IDs match your HTML
-    const usernameInput = document.getElementById('review-username');
-    const ratingInput = document.getElementById('review-rating');
-    const textInput = document.getElementById('review-text');
+    restaurants.push(newRestaurant);
+    renderRestaurantCards();
+    populateRestaurantSelect();
 
-    const username = usernameInput?.value.trim();
-    const rating = parseInt(ratingInput?.value, 10);
-    const reviewText = textInput?.value.trim();
-    const restaurantId = reviewRestaurantSelect?.value;
+    // Optionally clear some fields
+    els.addSpotForm.reset();
+  } catch (err) {
+    console.error(err);
+    alert("Error adding spot. Check console for details.");
+  }
+}
 
-    if (!username || !restaurantId || !rating) {
-      showStatus('Please fill in username, restaurant, and rating.', 'error');
-      return;
-    }
+async function handleAddReview() {
+  const username = document.getElementById("review-username")?.value.trim();
+  const restaurantId = els.reviewRestaurantSelect?.value;
+  const rating = parseInt(
+    document.getElementById("review-rating")?.value,
+    10
+  );
+  const text = document.getElementById("review-text")?.value.trim();
 
-    try {
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, rating, reviewText, restaurantId }),
-      });
-
-      if (!res.ok) {
-        throw new Error('Bad response from server');
-      }
-
-      await res.json();
-      showStatus('Review submitted!', 'success');
-      if (reviewForm) reviewForm.reset();
-
-      // Reload chart data after a new review
-      await loadRatingsSummary();
-    } catch (err) {
-      console.error('Error adding review:', err);
-      showStatus('Failed to submit review.', 'error');
-    }
+  if (!username || !restaurantId || !rating) {
+    alert("Please fill in username, restaurant, and rating.");
+    return;
   }
 
-  //
-  // 4. Ratings summary -> chart
-  //
-  async function loadRatingsSummary() {
-    if (!ratingChartCanvas) return;
+  try {
+    const newReview = await fetchJSON("/api/reviews", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        restaurant_id: restaurantId,
+        rating,
+        review_text: text || null,
+      }),
+    });
 
-    try {
-      const res = await fetch('/api/ratings-summary');
-      const summary = await res.json();
-      renderRatingChart(summary);
-    } catch (err) {
-      console.error('Error loading ratings summary:', err);
-    }
+    reviews.push(newReview);
+    renderRecentReviews();
+    updateRatingChart();
+
+    els.addReviewForm.reset();
+  } catch (err) {
+    console.error(err);
+    alert("Error submitting review. Check console for details.");
   }
+}
 
-  function renderRatingChart(summary) {
-    if (!ratingChartCanvas) return;
+// ---------- RATING DISTRIBUTION CHART ----------
+function updateRatingChart() {
+  if (!els.ratingChartCanvas) return;
 
-    const ctx = ratingChartCanvas.getContext('2d');
-    const labels = ['1★', '2★', '3★', '4★', '5★'];
-    const data = [
-      summary[1] || 0,
-      summary[2] || 0,
-      summary[3] || 0,
-      summary[4] || 0,
-      summary[5] || 0,
-    ];
-
-    if (!window.Chart) {
-      console.warn('Chart.js is not loaded, cannot render chart.');
-      return;
+  // Count reviews by rating 1–5
+  const counts = [0, 0, 0, 0, 0];
+  reviews.forEach((rev) => {
+    if (rev.rating >= 1 && rev.rating <= 5) {
+      counts[rev.rating - 1]++;
     }
+  });
 
-    if (ratingChart) {
-      ratingChart.data.datasets[0].data = data;
-      ratingChart.update();
-      return;
-    }
+  const ctx = els.ratingChartCanvas.getContext("2d");
 
+  if (!ratingChart) {
     ratingChart = new Chart(ctx, {
-      type: 'bar',
+      type: "bar",
       data: {
-        labels,
+        labels: ["1★", "2★", "3★", "4★", "5★"],
         datasets: [
           {
-            label: 'Number of reviews',
-            data,
+            label: "Number of reviews",
+            data: counts,
           },
         ],
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: "#fff",
+            },
+          },
+        },
         scales: {
+          x: {
+            ticks: { color: "#fff" },
+          },
           y: {
+            ticks: { color: "#fff" },
             beginAtZero: true,
-            ticks: { stepSize: 1 },
+            precision: 0,
           },
         },
       },
     });
+  } else {
+    ratingChart.data.datasets[0].data = counts;
+    ratingChart.update();
   }
-
-  //
-  // 5. Wire up event listeners and initial loads
-  //
-  if (addSpotForm) {
-    addSpotForm.addEventListener('submit', handleAddSpot);
-  }
-
-  if (reviewForm) {
-    reviewForm.addEventListener('submit', handleAddReview);
-  }
-
-  loadRestaurants();
-  loadRatingsSummary();
-});
+}
