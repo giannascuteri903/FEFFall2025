@@ -2,172 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chic City Eats | Curated City Dining</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chic City Eats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font for vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Chart.js for visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header class="site-header" id="top">
-    <div class="logo-area">
-      <div class="logo-circle">C</div>
-      <div class="logo-text">
-        <h1>Chic City Eats</h1>
-        <p class="tagline">Curated bites in Miami & NYC</p>
-      </div>
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Chic City Eats</h1>
+      <p class="hero-subtitle">
+        A collaborative, vibe-driven restaurant journal for Miami and beyond.
+      </p>
+      <p class="hero-tagline">
+        Not just “where to eat” &mdash; but <strong>how it feels</strong> to eat there.
+      </p>
     </div>
-
-    <nav class="main-nav">
-      <a href="#discover" class="nav-link">Discover</a>
-      <a href="#featured" class="nav-link">Featured</a>
-      <a href="#about" class="nav-link">About</a>
-    </nav>
   </header>
 
   <main>
-    <!-- Hero / Search Section -->
-    <section class="hero" id="discover">
-      <div class="hero-content">
-        <h2>Find your next iconic bite.</h2>
+    <!-- Overview + visualization -->
+    <section class="overview">
+      <div class="overview-text">
+        <h2>City Vibes at a Glance</h2>
         <p>
-          Filter by city, vibe, and budget — then save your favorite spots for later.
+          Every dot, star, and bar comes from real user submissions. As people
+          add places and rate them, this dashboard updates automatically.
         </p>
+        <ul class="overview-list">
+          <li><strong>Live restaurant feed</strong> from the database</li>
+          <li><strong>Community ratings</strong> (1–5)</li>
+          <li><strong>Vibe score</strong> and rating distribution chart</li>
+        </ul>
+      </div>
+      <div class="overview-chart">
+        <canvas id="ratingChart" aria-label="Rating distribution chart"></canvas>
+      </div>
+    </section>
 
-        <form class="filters" id="filters">
-          <div class="filter-group">
-            <label for="search">Search</label>
-            <input
-              type="text"
-              id="search"
-              placeholder="Search by name or city..."
-            />
-          </div>
+    <!-- Restaurant cards -->
+    <section class="restaurant-section">
+      <div class="section-header">
+        <h2>Spots People Are Talking About</h2>
+        <p>Sorted by newest additions. Click into the vibes, read reviews, and add your own.</p>
+      </div>
+      <div id="restaurant-grid" class="restaurant-grid">
+        <!-- Cards injected by script.js -->
+      </div>
+    </section>
 
-          <div class="filter-group">
-            <label for="city">City</label>
-            <select id="city">
-              <option value="all">All</option>
-              <option value="Miami">Miami</option>
-              <option value="Miami Beach">Miami Beach</option>
-              <option value="New York">New York</option>
-              <option value="Queens">Queens</option>
+    <!-- Forms: add restaurant + add review -->
+    <section class="forms-section">
+      <div class="form-card">
+        <h3>Add a New Spot</h3>
+        <p class="form-hint">Think of this as your personal “pin” on the Chic City Eats map.</p>
+        <form id="add-restaurant-form">
+          <label>
+            Your username
+            <input type="text" name="username" required placeholder="gianna" />
+          </label>
+
+          <label>
+            Restaurant name
+            <input type="text" name="name" required placeholder="Forte dei Miami" />
+          </label>
+
+          <label>
+            City
+            <input type="text" name="city" required placeholder="Miami Beach" />
+          </label>
+
+          <label>
+            Cuisine
+            <input type="text" name="cuisine" placeholder="Italian Coastal" />
+          </label>
+
+          <label>
+            Price range
+            <select name="price_range">
+              <option value="">Select</option>
+              <option value="$">$ (Casual)</option>
+              <option value="$$">$$ (Mid)</option>
+              <option value="$$$">$$$ (Upscale)</option>
             </select>
-          </div>
+          </label>
 
-          <div class="filter-group">
-            <label for="cuisine">Cuisine</label>
-            <select id="cuisine">
-              <option value="all">All</option>
-              <option value="New American">New American</option>
-              <option value="Italian">Italian</option>
-              <option value="Brunch">Brunch</option>
-              <option value="Fusion">Fusion</option>
-              <option value="Comfort Food">Comfort Food</option>
-            </select>
-          </div>
+          <label>
+            Image URL (optional)
+            <input type="url" name="image_url" placeholder="https://…" />
+          </label>
 
-          <div class="filter-group">
-            <span class="filter-label">Price</span>
-            <div class="price-chips" id="price-chips">
-              <button type="button" data-price="all" class="chip chip--active">$–$$$</button>
-              <button type="button" data-price="$" class="chip">$</button>
-              <button type="button" data-price="$$" class="chip">$$</button>
-              <button type="button" data-price="$$$" class="chip">$$$</button>
-            </div>
-          </div>
+          <button type="submit">Add Spot</button>
+          <p id="add-restaurant-message" class="form-message"></p>
         </form>
       </div>
-    </section>
 
-    <!-- Restaurant Grid -->
-    <section class="section" aria-labelledby="restaurant-heading">
-      <div class="section-header">
-        <h2 id="restaurant-heading">Curated Spots</h2>
-        <p class="section-subtitle">
-          Hand-picked restaurants from your Chic City Eats community.
+      <div class="form-card">
+        <h3>Drop a Review</h3>
+        <p class="form-hint">
+          Pick a spot from the list and add your honest rating + quick notes.
         </p>
-      </div>
+        <form id="add-review-form">
+          <label>
+            Your username
+            <input type="text" name="username" required placeholder="gianna" />
+          </label>
 
-      <div class="restaurant-grid" id="restaurant-grid">
-        <!-- Cards will be injected by JS -->
-      </div>
+          <label>
+            Restaurant
+            <select name="restaurant_id" id="review-restaurant-select" required>
+              <option value="">Select a restaurant…</option>
+              <!-- options injected by script.js -->
+            </select>
+          </label>
 
-      <p class="empty-state" id="empty-state" hidden>
-        No restaurants match your filters (yet). Try adjusting your search.
-      </p>
-    </section>
+          <label>
+            Rating (1–5)
+            <input type="number" name="rating" min="1" max="5" required />
+          </label>
 
-    <!-- Featured Reviews -->
-    <section class="section section--accent" id="featured">
-      <div class="section-header">
-        <h2>Featured Vibes</h2>
-        <p class="section-subtitle">
-          Standout experiences from real diners.
-        </p>
-      </div>
+          <label>
+            Review text (optional)
+            <textarea name="review_text" rows="3" placeholder="Perfect date night vibe…"></textarea>
+          </label>
 
-      <div class="featured-grid">
-        <article class="featured-card">
-          <h3>Miami Date-Night Classic</h3>
-          <p class="featured-meta">Chic City Bites · Miami, FL · New American</p>
-          <p>
-            “Perfect date-night spot. Cozy lighting, sharp service, and a menu
-            that actually feels exciting.”
-          </p>
-        </article>
-
-        <article class="featured-card">
-          <h3>Skyline Cocktails in SoHo</h3>
-          <p class="featured-meta">SoHo Sky Lounge · New York, NY · Fusion</p>
-          <p>
-            “Think rooftop views, polished small plates, and cocktails that look
-            as good as they taste.”
-          </p>
-        </article>
-
-        <article class="featured-card">
-          <h3>Comfort Food Core in Queens</h3>
-          <p class="featured-meta">Queens Comfort Kitchen · Queens, NY · Comfort</p>
-          <p>
-            “Huge portions, no ego. This is where you go when you want a
-            warm, welcoming neighborhood feel.”
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- About section -->
-    <section class="section" id="about">
-      <div class="section-split">
-        <div>
-          <h2>About Chic City Eats</h2>
-          <p>
-            Chic City Eats is a collaborative city dining guide focused on
-            Miami and New York City. Instead of endless lists, you get a curated
-            feed of restaurants actually loved by locals.
-          </p>
-          <p>
-            Soon, you’ll be able to create an account, track your favorite spots,
-            and contribute reviews powered by our shared restaurant database.
-          </p>
-        </div>
-        <div class="about-highlight">
-          <h3>What’s Coming Next</h3>
-          <ul>
-            <li>✨ Log in and save your favorite spots across devices</li>
-            <li>📊 See average ratings based on real reviews</li>
-            <li>🔍 Filter by vibe, neighborhood, and price in real time</li>
-          </ul>
-        </div>
+          <button type="submit">Submit Review</button>
+          <p id="add-review-message" class="form-message"></p>
+        </form>
       </div>
     </section>
   </main>
 
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    ↑
-  </button>
-
-  <footer class="site-footer">
-    <p>Chic City Eats · Built with ♥ for food lovers</p>
+  <footer>
+    <p>Built for Front-End Fundamentals &mdash; Chic City Eats ✨</p>
   </footer>
 
   <script src="script.js"></script>

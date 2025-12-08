@@ -1,229 +1,288 @@
-// ========== Mock data (matches the vibe of your DB) ==========
-const restaurants = [
-  {
-    id: 1,
-    name: "Chic City Bites",
-    city: "Miami",
-    cuisine: "New American",
-    price_range: "$$",
-    image_url: "",
-    avg_rating: 4.9,
-    blurb: "Cozy New American spot with elevated plates and date-night energy."
-  },
-  {
-    id: 2,
-    name: "Oceanfront Osteria",
-    city: "Miami Beach",
-    cuisine: "Italian",
-    price_range: "$$$",
-    image_url: "",
-    avg_rating: 4.7,
-    blurb: "House-made pasta, seafood, and sunset views right off the water."
-  },
-  {
-    id: 3,
-    name: "Brickell Brunch Club",
-    city: "Miami",
-    cuisine: "Brunch",
-    price_range: "$$",
-    image_url: "",
-    avg_rating: 4.4,
-    blurb: "Bottomless brunch, upbeat music, and a very Instagrammable menu."
-  },
-  {
-    id: 4,
-    name: "SoHo Sky Lounge",
-    city: "New York",
-    cuisine: "Fusion",
-    price_range: "$$$",
-    image_url: "",
-    avg_rating: 4.8,
-    blurb: "Rooftop lounge with skyline views and shareable fusion plates."
-  },
-  {
-    id: 5,
-    name: "Queens Comfort Kitchen",
-    city: "Queens",
-    cuisine: "Comfort Food",
-    price_range: "$",
-    image_url: "",
-    avg_rating: 4.5,
-    blurb: "Neighborhood staple with comforting classics and big portions."
-  }
-];
+// script.js
 
-const restaurantGrid = document.getElementById("restaurant-grid");
-const emptyState = document.getElementById("empty-state");
+const API_BASE = ''; // same origin, so we can use relative paths
 
-const searchInput = document.getElementById("search");
-const citySelect = document.getElementById("city");
-const cuisineSelect = document.getElementById("cuisine");
-const priceChips = document.getElementById("price-chips");
-const backToTopBtn = document.getElementById("back-to-top");
+let ratingChart = null;
 
-let activePrice = "all";
-let favorites = new Set();
+document.addEventListener('DOMContentLoaded', () => {
+  fetchAndRenderRestaurants();
+  setupAddRestaurantForm();
+  setupAddReviewForm();
+});
 
-// Load favorites from localStorage
-(function loadFavorites() {
+// Fetch restaurants and render UI
+async function fetchAndRenderRestaurants() {
   try {
-    const stored = JSON.parse(localStorage.getItem("cce_favorites"));
-    if (Array.isArray(stored)) {
-      favorites = new Set(stored);
+    const res = await fetch(`${API_BASE}/api/restaurants`);
+    const data = await res.json();
+
+    renderRestaurantGrid(data);
+    populateReviewSelect(data);
+    renderRatingChart(data);
+  } catch (err) {
+    console.error('Failed to load restaurants:', err);
+    const grid = document.getElementById('restaurant-grid');
+    if (grid) {
+      grid.innerHTML = `<p class="error">Could not load restaurants. Try refreshing.</p>`;
     }
-  } catch {
-    favorites = new Set();
   }
-})();
+}
 
-// ========== Render ==========
-function renderRestaurants(list) {
-  restaurantGrid.innerHTML = "";
+function renderRestaurantGrid(restaurants) {
+  const grid = document.getElementById('restaurant-grid');
+  grid.innerHTML = '';
 
-  if (!list.length) {
-    emptyState.hidden = false;
+  if (!restaurants || restaurants.length === 0) {
+    grid.innerHTML = `<p>No spots yet. Be the first to add one!</p>`;
     return;
   }
 
-  emptyState.hidden = true;
+  restaurants.forEach((r) => {
+    const avg = r.avg_rating == null ? '—' : `${r.avg_rating}★`;
+    const count = r.review_count || 0;
+    const vibeLabel =
+      r.avg_rating == null
+        ? 'Needs more data'
+        : r.avg_rating >= 4.5
+        ? 'Elite vibes'
+        : r.avg_rating >= 4
+        ? 'Great energy'
+        : r.avg_rating >= 3
+        ? 'Mixed reviews'
+        : 'Risky pick';
 
-  list.forEach((r) => {
-    const card = document.createElement("article");
-    card.className = "restaurant-card";
+    const card = document.createElement('article');
+    card.className = 'restaurant-card';
+
+    const imgUrl =
+      r.image_url ||
+      'https://via.placeholder.com/400x250?text=Chic+City+Eats';
 
     card.innerHTML = `
-      <div class="card-header">
-        <div class="card-title-area">
-          <h3>${r.name}</h3>
-          <p class="card-city">${r.city}</p>
-          <div class="card-tags">
-            <span class="tag-pill">${r.cuisine}</span>
-            <span class="tag-pill">${r.price_range}</span>
-          </div>
-        </div>
-        <div class="card-rating">
-          ★ ${r.avg_rating.toFixed(1)}
-        </div>
+      <div class="card-image-wrap">
+        <img src="${imgUrl}" alt="${r.name}" />
+        <span class="price-tag">${r.price_range || '$$'}</span>
       </div>
-
       <div class="card-body">
-        ${r.blurb}
-      </div>
-
-      <div class="card-footer">
-        <button class="btn btn-primary" type="button">
-          View details
-        </button>
-        <button
-          class="btn btn-ghost btn-favorite ${favorites.has(r.id) ? "active" : ""}"
-          type="button"
-          data-id="${r.id}"
-        >
-          ${favorites.has(r.id) ? "★ Saved" : "☆ Save"}
-        </button>
+        <h3>${r.name}</h3>
+        <p class="card-location">${r.city}${
+      r.cuisine ? ' · ' + r.cuisine : ''
+    }</p>
+        <div class="card-rating-row">
+          <span class="rating-pill">${avg}</span>
+          <span class="rating-count">${count} review${
+      count === 1 ? '' : 's'
+    }</span>
+        </div>
+        <p class="vibe-label">${vibeLabel}</p>
+        ${renderMiniReviews(r.Reviews || [])}
       </div>
     `;
 
-    restaurantGrid.appendChild(card);
+    grid.appendChild(card);
   });
 }
 
-// ========== Filter Logic ==========
-function getFilteredRestaurants() {
-  const text = searchInput.value.trim().toLowerCase();
-  const city = citySelect.value;
-  const cuisine = cuisineSelect.value;
-  const price = activePrice;
+function renderMiniReviews(reviews) {
+  if (!reviews || reviews.length === 0) {
+    return `<p class="no-reviews">No written reviews yet. Be the first to share the vibes.</p>`;
+  }
 
-  return restaurants.filter((r) => {
-    const matchesText =
-      !text ||
-      r.name.toLowerCase().includes(text) ||
-      r.city.toLowerCase().includes(text);
+  const topThree = reviews.slice(0, 3);
 
-    const matchesCity = city === "all" || r.city === city;
-    const matchesCuisine = cuisine === "all" || r.cuisine === cuisine;
-    const matchesPrice = price === "all" || r.price_range === price;
+  const items = topThree
+    .map(
+      (rv) => `
+      <li>
+        <span class="mini-rating">${rv.rating}★</span>
+        <span class="mini-text">${
+          rv.review_text ? escapeHtml(rv.review_text) : '(no text)'
+        }</span>
+      </li>
+    `
+    )
+    .join('');
 
-    return matchesText && matchesCity && matchesCuisine && matchesPrice;
+  return `
+    <ul class="mini-reviews">
+      ${items}
+    </ul>
+  `;
+}
+
+function populateReviewSelect(restaurants) {
+  const select = document.getElementById('review-restaurant-select');
+  select.innerHTML = `<option value="">Select a restaurant…</option>`;
+
+  restaurants.forEach((r) => {
+    const opt = document.createElement('option');
+    opt.value = r.id;
+    opt.textContent = `${r.name} (${r.city})`;
+    select.appendChild(opt);
   });
 }
 
-function applyFilters() {
-  renderRestaurants(getFilteredRestaurants());
-}
+// Add-restaurant form
+function setupAddRestaurantForm() {
+  const form = document.getElementById('add-restaurant-form');
+  const msg = document.getElementById('add-restaurant-message');
+  if (!form) return;
 
-// ========== Event Listeners ==========
-// Text search + selects
-searchInput.addEventListener("input", applyFilters);
-citySelect.addEventListener("change", applyFilters);
-cuisineSelect.addEventListener("change", applyFilters);
-
-// Price chips
-priceChips.addEventListener("click", (e) => {
-  const btn = e.target.closest("button[data-price]");
-  if (!btn) return;
-
-  activePrice = btn.dataset.price;
-
-  // update active styling
-  document
-    .querySelectorAll("#price-chips .chip")
-    .forEach((chip) => chip.classList.remove("chip--active"));
-  btn.classList.add("chip--active");
-
-  applyFilters();
-});
-
-// Favorite buttons (event delegation)
-restaurantGrid.addEventListener("click", (e) => {
-  const favBtn = e.target.closest(".btn-favorite");
-  if (!favBtn) return;
-
-  const id = Number(favBtn.dataset.id);
-  if (favorites.has(id)) {
-    favorites.delete(id);
-  } else {
-    favorites.add(id);
-  }
-
-  // Persist favorites
-  localStorage.setItem("cce_favorites", JSON.stringify([...favorites]));
-
-  // Update button text/state
-  if (favorites.has(id)) {
-    favBtn.classList.add("active");
-    favBtn.textContent = "★ Saved";
-  } else {
-    favBtn.classList.remove("active");
-    favBtn.textContent = "☆ Save";
-  }
-});
-
-// Smooth scroll for nav links
-document.querySelectorAll(".main-nav a[href^='#']").forEach((link) => {
-  link.addEventListener("click", (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = link.getAttribute("href").slice(1);
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    msg.textContent = '';
+    msg.classList.remove('error', 'success');
+
+    const formData = new FormData(form);
+    const payload = {
+      username: formData.get('username').trim(),
+      name: formData.get('name').trim(),
+      city: formData.get('city').trim(),
+      cuisine: formData.get('cuisine').trim() || null,
+      price_range: formData.get('price_range') || null,
+      image_url: formData.get('image_url').trim() || null
+    };
+
+    if (!payload.username || !payload.name || !payload.city) {
+      msg.textContent = 'Please fill out username, name, and city.';
+      msg.classList.add('error');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/restaurants`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Failed to add restaurant');
+      }
+
+      msg.textContent = 'Spot added! It’s now in the feed.';
+      msg.classList.add('success');
+      form.reset();
+
+      // Refresh list + chart
+      fetchAndRenderRestaurants();
+    } catch (err) {
+      console.error(err);
+      msg.textContent = err.message || 'Something went wrong.';
+      msg.classList.add('error');
     }
   });
-});
+}
 
-// Back to top
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 280) {
-    backToTopBtn.classList.add("show");
-  } else {
-    backToTopBtn.classList.remove("show");
+// Add-review form
+function setupAddReviewForm() {
+  const form = document.getElementById('add-review-form');
+  const msg = document.getElementById('add-review-message');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    msg.classList.remove('error', 'success');
+
+    const formData = new FormData(form);
+    const username = formData.get('username').trim();
+    const restaurant_id = formData.get('restaurant_id');
+    const rating = Number(formData.get('rating'));
+    const review_text = formData.get('review_text').trim();
+
+    if (!username || !restaurant_id || !rating) {
+      msg.textContent = 'Please fill username, restaurant, and rating.';
+      msg.classList.add('error');
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${API_BASE}/api/restaurants/${restaurant_id}/reviews`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username,
+            rating,
+            review_text: review_text || null
+          })
+        }
+      );
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Failed to add review');
+      }
+
+      msg.textContent = 'Review added! Thanks for sharing the vibes.';
+      msg.classList.add('success');
+      form.reset();
+
+      // Refresh feed + chart
+      fetchAndRenderRestaurants();
+    } catch (err) {
+      console.error(err);
+      msg.textContent = err.message || 'Something went wrong.';
+      msg.classList.add('error');
+    }
+  });
+}
+
+// Rating distribution chart
+function renderRatingChart(restaurants) {
+  const ctx = document.getElementById('ratingChart');
+  if (!ctx) return;
+
+  // Count how many reviews at each rating 1–5
+  const buckets = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  restaurants.forEach((r) => {
+    (r.Reviews || []).forEach((rv) => {
+      if (buckets[rv.rating] != null) {
+        buckets[rv.rating] += 1;
+      }
+    });
+  });
+
+  const labels = ['1★', '2★', '3★', '4★', '5★'];
+  const values = [buckets[1], buckets[2], buckets[3], buckets[4], buckets[5]];
+
+  // If chart already exists, destroy to avoid duplication
+  if (ratingChart) {
+    ratingChart.destroy();
   }
-});
 
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+  ratingChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Number of reviews',
+          data: values
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+}
 
-// Initial render
-renderRestaurants(restaurants);
+// Basic HTML escaping for reviews
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
