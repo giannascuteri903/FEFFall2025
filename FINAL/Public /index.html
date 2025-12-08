@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Smart Recipe Book</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>The Smart Recipe Book</h1>
+        <p>Share recipes. Discover new flavors. See nutrition instantly.</p>
+    </header>
+
+    <main>
+
+        <!-- Add Recipe Form -->
+        <section class="form-section">
+            <h2>Add a New Recipe</h2>
+            <form id="recipeForm">
+                <input type="text" id="title" placeholder="Recipe Title" required>
+                <textarea id="ingredients" placeholder="Ingredients (one per line)" required></textarea>
+                <textarea id="instructions" placeholder="Instructions" required></textarea>
+                <input type="url" id="imageUrl" placeholder="Image URL (optional)">
+                <input type="text" id="createdBy" placeholder="Your Name">
+                <button type="submit">Add Recipe</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <!-- Feed Section -->
+        <section class="feed-section">
+            <h2>Recipe Feed</h2>
+            <div id="recipeFeed" class="feed-container"></div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
