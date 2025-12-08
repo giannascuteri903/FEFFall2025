@@ -19,3 +19,13 @@ sequelize.sync().then(() => {
   console.log("SQLite database synced ✔");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
+
+const sequelize = require('./models/index');
+const Recipe = require('./models/Recipe');
+
+sequelize.sync().then(() => {
+  console.log("Database synced!");
+})
+.catch(err => {
+  console.error("Error syncing DB:", err);
+});
