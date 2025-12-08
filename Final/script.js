@@ -211,44 +211,61 @@ async function handleAddSpot() {
 }
 
 async function handleAddReview() {
-  const username = document.getElementById("review-username")?.value.trim();
-  const restaurantId = els.reviewRestaurantSelect?.value;
-  const rating = parseInt(
-    document.getElementById("review-rating")?.value,
-    10
-  );
-  const text = document.getElementById("review-text")?.value.trim();
+  console.log("handleAddReview called"); // debug
 
+  const username = els.reviewUsername.value.trim();
+  const restaurantId = els.reviewRestaurant.value;
+  const rating = els.reviewRating.value;
+  const reviewText = els.reviewText.value.trim();
+
+  // front-end validation
   if (!username || !restaurantId || !rating) {
-    alert("Please fill in username, restaurant, and rating.");
+    alert("Please enter your name, pick a spot, and choose a rating.");
     return;
   }
 
   try {
-    const newReview = await fetchJSON("/api/reviews", {
+    const res = await fetch("/api/reviews", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username,
-        restaurant_id: restaurantId,
-        rating,
-        review_text: text || null,
+        restaurantId: Number(restaurantId),
+        rating: Number(rating),
+        reviewText,
       }),
     });
 
-    reviews.push(newReview);
-    renderRecentReviews();
-    updateRatingChart();
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Review submit failed:", res.status, text);
+      alert("Could not submit review (server error). Check console.");
+      return;
+    }
 
+    const data = await res.json();
+    console.log("Review created:", data);
+
+    // reset form
     els.addReviewForm.reset();
+    // if you want to keep the same restaurant selected:
+    // els.reviewRestaurant.value = restaurantId;
+
+    // refresh UI pieces that depend on reviews
+    await loadRecentReviews();
+    await loadRatingStats();
+    await loadRestaurants();
+
+    alert("Review submitted ✨");
   } catch (err) {
-    console.error(err);
-    alert("Error submitting review. Check console for details.");
+    console.error("Error adding review:", err);
+    alert("Could not submit review (network/JS error). See console.");
   }
 }
 
 // ---------- RATING DISTRIBUTION CHART ----------
 function updateRatingChart() {
-  if (!els.ratingChartCanvas) return;
+  if (!el.ratingChartCanvas) return;
 
   // Count reviews by rating 1–5
   const counts = [0, 0, 0, 0, 0];
