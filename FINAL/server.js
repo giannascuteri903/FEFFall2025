@@ -27,3 +27,16 @@ sequelize.sync().then(() => {
   console.log("Database synced!");
   app.listen(3000, () => console.log("Server running on http://localhost:3000"));
 });
+
+//LIKES 
+app.post("/recipes/:id/like", async (req, res) => {
+    const recipe = await Recipe.findByPk(req.params.id);
+
+    if (!recipe) return res.status(404).json({ error: "Recipe not found" });
+
+    recipe.likes += 1;
+    await recipe.save();
+
+    res.json({ likes: recipe.likes });
+});
+
