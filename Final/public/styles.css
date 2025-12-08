@@ -80,7 +80,7 @@ body {
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0.04),
-    rgba(248, 208, 138, 0.14),
+    rgba(246, 210, 147, 0.14),
     rgba(0, 0, 0, 0.5)
   );
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -117,7 +117,7 @@ main {
   margin-bottom: 2rem;
   padding: 1.75rem 2rem;
   border-radius: var(--radius-xl);
-  background: rgba(0, 0, 0, 0.75);
+  background: #ffffff;
   border: 1px solid var(--border-subtle);
 }
 
@@ -263,7 +263,7 @@ main {
   gap: 1rem;
   padding: 0.8rem 0.9rem;
   border-radius: 18px;
-  background: rgba(15, 15, 15, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border-subtle);
 }
 
