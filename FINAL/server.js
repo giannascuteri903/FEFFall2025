@@ -10,11 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('Public'));
 
-// TEST ROUTE
-app.get('/', (req, res) => {
-  res.send("Recipe API is running 🚀");
-});
-
 // GET ALL RECIPES
 app.get('/recipes', async (req, res) => {
   const recipes = await Recipe.findAll();
