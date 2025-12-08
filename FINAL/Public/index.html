@@ -30,19 +30,40 @@
 
         <hr>
 
-        <!--Search Bar-->
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search recipes..."
-            class="search-bar"
-        />
-
         <!-- Feed Section -->
         <section class="feed-section">
-            <h2>Recipe Feed</h2>
-            <div id="recipeFeed" class="feed-container"></div>
+
+            <div class="feed-header">
+                <h2>Recipe Feed</h2>
+
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search recipes..."
+                    class="search-bar"
+                />
+            </div>
+
+            <div id="recipeFeed" class="feed-container masonry"></div>
         </section>
+
+        <!--Chart Section-->
+        <section class="charts-section">
+            <h2>Recipe Insights</h2>
+
+            <div class="chart-container">
+                <h3>Most Liked Recipes</h3>
+                <canvas id="likesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h3>Top Ingredients</h3>
+                <canvas id="ingredientsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     </main>
 
