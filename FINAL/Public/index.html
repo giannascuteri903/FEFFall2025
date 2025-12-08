@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Smart Recipe Book</title>
+    <title>Social Media for Foodies: FlavorFeed</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <header>
+    <header class="fun-header">
         <h1>FlavorFeed</h1>
         <p>Scroll. Cook. Share. Repeat!</p>
     </header>
@@ -24,6 +25,18 @@
                 <textarea id="instructions" placeholder="Instructions" required></textarea>
                 <input type="url" id="imageUrl" placeholder="Image URL (optional)">
                 <input type="text" id="createdBy" placeholder="Your Name">
+
+                <!-- CATEGORY DROPDOWN (NEW) -->
+                <select id="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                    <option>Snack</option>
+                    <option>Dessert</option>
+                    <option>Drink</option>
+                </select>
+
                 <button type="submit">Add Recipe</button>
             </form>
         </section>
@@ -47,7 +60,7 @@
             <div id="recipeFeed" class="feed-container masonry"></div>
         </section>
 
-        <!--Chart Section-->
+        <!-- Chart Section -->
         <section class="charts-section">
             <h2>Recipe Insights</h2>
 
@@ -60,6 +73,13 @@
                 <h3>Top Ingredients</h3>
                 <canvas id="ingredientsChart"></canvas>
             </div>
+
+            <!-- OPTIONAL: Category Chart Later -->
+            <!-- <div class="chart-container">
+                <h3>Recipes by Category</h3>
+                <canvas id="categoryChart"></canvas>
+            </div> -->
+
         </section>
 
         <!-- Chart.js CDN -->

@@ -29,7 +29,13 @@ function renderRecipes(recipes) {
         const card = document.createElement("div");
         card.classList.add("recipe-card");
 
+        const categoryTag = r.category 
+            ? `<span class="category-tag">${r.category}</span>` 
+            : "";
+
         card.innerHTML = `
+            ${categoryTag}
+
             <h3>${r.title}</h3>
             <p class="creator">Posted by <strong>${r.createdBy || "Anonymous"}</strong></p>
 
@@ -42,7 +48,7 @@ function renderRecipes(recipes) {
             <p>${r.instructions}</p>
 
             <button class="like-btn" data-id="${r.id}">
-                🖤 Like (${r.likes})
+                🤍 Like (${r.likes})
             </button>
         `;
 
@@ -61,7 +67,8 @@ document.getElementById("recipeForm").addEventListener("submit", async (e) => {
         ingredients: document.getElementById("ingredients").value,
         instructions: document.getElementById("instructions").value,
         imageUrl: document.getElementById("imageUrl").value,
-        createdBy: document.getElementById("createdBy").value
+        createdBy: document.getElementById("createdBy").value,
+        category: document.getElementById("category").value   // ★ NEW FIELD
     };
 
     const res = await fetch("/recipes", {
@@ -101,7 +108,7 @@ document.addEventListener("click", async (e) => {
         if (recipe) recipe.likes = data.likes;
 
         // Update UI
-        e.target.innerHTML = `🖤 Like (${data.likes})`;
+        e.target.innerHTML = `🤍 Like (${data.likes})`;
 
         // Update charts because likes changed
         renderLikesChart(allRecipes);
@@ -117,7 +124,8 @@ document.getElementById("searchInput").addEventListener("input", function () {
     const filtered = allRecipes.filter(r =>
         r.title.toLowerCase().includes(searchText) ||
         r.ingredients.toLowerCase().includes(searchText) ||
-        (r.createdBy || "").toLowerCase().includes(searchText)
+        (r.createdBy || "").toLowerCase().includes(searchText) ||
+        (r.category || "").toLowerCase().includes(searchText)  // ★ Also searchable
     );
 
     renderRecipes(filtered);
@@ -139,7 +147,7 @@ function renderLikesChart(recipes) {
             datasets: [{
                 label: "Likes",
                 data: likes,
-                backgroundColor: "#FF6384",
+                backgroundColor: "#ff92a9ff",
             }]
         },
         options: {
@@ -184,11 +192,11 @@ function renderIngredientsChart(recipes) {
             datasets: [{
                 data: counts,
                 backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#4BC0C0",
-                    "#9966FF"
+                    "#ffbdcbff",
+                    "#aed1e8ff",
+                    "#fef0cbff",
+                    "#ccf7f7ff",
+                    "#dccbfdff"
                 ]
             }]
         },

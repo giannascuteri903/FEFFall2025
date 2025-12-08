@@ -26,7 +26,12 @@ const Recipe = sequelize.define("Recipe", {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0   // IMPORTANT!!!
+    },
+    category: {
+    type: DataTypes.STRING,
+    allowNull: false
     }
+
 });
 
 module.exports = Recipe;
