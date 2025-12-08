@@ -1,5 +1,5 @@
+const { sequelize } = require("./index");  
 const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
 
 const Recipe = sequelize.define("Recipe", {
     title: {
