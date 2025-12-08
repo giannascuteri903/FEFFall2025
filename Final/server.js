@@ -1,148 +1,144 @@
-// Final/server.js
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-
-const { sequelize, Restaurant, Review } = require('./models');
+// server.js
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const { sequelize, Spot, Review } = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// ---------- MIDDLEWARE ----------
 app.use(cors());
 app.use(express.json());
 
-// Serve your static frontend (index.html, styles.css, script.js)
-app.use(express.static(__dirname));
+// Serve frontend from /public
+app.use(express.static(path.join(__dirname, "public")));
 
-// Simple health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
-});
+// ---------- API ROUTES ----------
 
-//
-// RESTAURANTS
-//
-
-// Get all restaurants (newest first)
-app.get('/api/restaurants', async (req, res) => {
+// Get all spots with their reviews
+app.get("/api/spots", async (req, res) => {
   try {
-    const restaurants = await Restaurant.findAll({
-      order: [['createdAt', 'DESC']],
+    const spots = await Spot.findAll({
+      include: [{ model: Review }],
+      order: [["createdAt", "DESC"]]
     });
-    res.json(restaurants);
+    res.json(spots);
   } catch (err) {
-    console.error('Error fetching restaurants:', err);
-    res.status(500).json({ error: 'Failed to fetch restaurants' });
+    console.error("Error fetching spots:", err);
+    res.status(500).json({ error: "Failed to fetch spots" });
   }
 });
 
-// Create a new restaurant
-app.post('/api/restaurants', async (req, res) => {
+// Create a new spot
+app.post("/api/spots", async (req, res) => {
   try {
-    const { name, city, cuisine, priceRange, imageUrl } = req.body;
+    const { username, name, city, cuisine, priceRange, imageUrl } = req.body;
 
-    if (!name) {
-      return res.status(400).json({ error: 'Name is required' });
+    if (!username || !name || !city || !cuisine || !priceRange) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const restaurant = await Restaurant.create({
+    const spot = await Spot.create({
+      username,
       name,
       city,
       cuisine,
       priceRange,
-      imageUrl,
+      imageUrl: imageUrl || null
     });
 
-    res.status(201).json(restaurant);
+    res.status(201).json(spot);
   } catch (err) {
-    console.error('Error creating restaurant:', err);
-    res.status(500).json({ error: 'Failed to create restaurant' });
+    console.error("Error creating spot:", err);
+    res.status(500).json({ error: "Failed to create spot" });
   }
 });
 
-//
-// REVIEWS
-//
-
-// Get all reviews, optionally filtered by restaurantId
-app.get('/api/reviews', async (req, res) => {
+// Get all reviews
+app.get("/api/reviews", async (req, res) => {
   try {
-    const { restaurantId } = req.query;
-
-    const where = {};
-    if (restaurantId) {
-      where.restaurantId = restaurantId;
-    }
-
     const reviews = await Review.findAll({
-      where,
-      order: [['createdAt', 'DESC']],
-      include: [{ model: Restaurant }],
+      include: [{ model: Spot }],
+      order: [["createdAt", "DESC"]]
     });
-
     res.json(reviews);
   } catch (err) {
-    console.error('Error fetching reviews:', err);
-    res.status(500).json({ error: 'Failed to fetch reviews' });
+    console.error("Error fetching reviews:", err);
+    res.status(500).json({ error: "Failed to fetch reviews" });
   }
 });
 
 // Create a new review
-app.post('/api/reviews', async (req, res) => {
+app.post("/api/reviews", async (req, res) => {
   try {
-    const { username, rating, reviewText, restaurantId } = req.body;
+    const { username, rating, text, spotId } = req.body;
 
-    if (!username || !rating || !restaurantId) {
-      return res.status(400).json({ error: 'username, rating, and restaurantId are required' });
+    if (!username || !rating || !spotId) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    // ensure spot exists
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+      return res.status(404).json({ error: "Spot not found" });
     }
 
     const review = await Review.create({
       username,
       rating,
-      reviewText,
-      restaurantId,
+      text: text || "",
+      spotId
     });
 
     res.status(201).json(review);
   } catch (err) {
-    console.error('Error creating review:', err);
-    res.status(500).json({ error: 'Failed to create review' });
+    console.error("Error creating review:", err);
+    res.status(500).json({ error: "Failed to create review" });
   }
 });
 
-//
-// Ratings summary for chart (1–5 counts)
-//
-app.get('/api/ratings-summary', async (req, res) => {
+// Simple summary endpoint (optional, can help for stats)
+app.get("/api/summary", async (req, res) => {
   try {
-    const reviews = await Review.findAll({ attributes: ['rating'] });
+    const [spotCount, reviews] = await Promise.all([
+      Spot.count(),
+      Review.findAll()
+    ]);
 
-    const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    for (const r of reviews) {
-      if (counts[r.rating] !== undefined) {
-        counts[r.rating] += 1;
-      }
+    if (reviews.length === 0) {
+      return res.json({
+        spotCount,
+        reviewCount: 0,
+        averageRating: null
+      });
     }
 
-    res.json(counts);
+    const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+    const avg = totalRating / reviews.length;
+
+    res.json({
+      spotCount,
+      reviewCount: reviews.length,
+      averageRating: Number(avg.toFixed(2))
+    });
   } catch (err) {
-    console.error('Error building ratings summary:', err);
-    res.status(500).json({ error: 'Failed to build ratings summary' });
+    console.error("Error building summary:", err);
+    res.status(500).json({ error: "Failed to get summary" });
   }
 });
 
-// Start server after DB is ready
+// ---------- START SERVER ----------
 async function start() {
   try {
-    await sequelize.sync(); // creates tables if they don't exist
-    console.log('Database synced ✅');
+    await sequelize.sync(); // sync DB
+    console.log("Database synced ✅");
 
     app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`Chic City Eats listening on port ${PORT}`);
     });
   } catch (err) {
-    console.error('Failed to start server:', err);
+    console.error("Failed to start server:", err);
   }
 }
 

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chic City Eats | Social Food Moodboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Chart.js for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="top-nav">
+        <div class="logo">Chic City Eats</div>
+        <ul>
+          <li><a href="#spots-section">Spots</a></li>
+          <li><a href="#insights-section">Vibe Insights</a></li>
+          <li><a href="#story-section">Story</a></li>
+        </ul>
+      </nav>
+
+      <section class="hero">
+        <h1>Map the vibes, not just the food.</h1>
+        <p class="hero-subtitle">
+          A collaborative, vibe-first food journal where diners drop their
+          favorite spots, rate the energy, and sketch a living portrait of the
+          city’s flavor.
+        </p>
+        <p class="hero-tagline">
+          Every card and every bar in the chart comes from real people adding
+          their spots and reviews.
+        </p>
+      </section>
+    </header>
+
+    <main>
+      <!-- Snapshot / Chart -->
+      <section id="insights-section" class="panel panel-snapshot">
+        <div class="panel-copy">
+          <h2>City Vibes at a Glance</h2>
+          <p>
+            See how the community is rating the city overall. Are we living in a
+            5★ era or a tough crowd?
+          </p>
+          <ul class="bullet-list">
+            <li>Live count of spots and reviews from the database.</li>
+            <li>Average city rating based on all submitted reviews.</li>
+            <li>Rating distribution chart from 1–5★.</li>
+          </ul>
+          <div id="stats-summary" class="stats-summary">
+            <!-- Filled by script.js -->
+          </div>
+        </div>
+        <div class="panel-chart">
+          <canvas id="rating-chart" aria-label="Rating distribution"></canvas>
+        </div>
+      </section>
+
+      <!-- Add Spot + Spots Feed -->
+      <section id="spots-section" class="panel panel-grid">
+        <div class="column">
+          <h2>Add a New Spot</h2>
+          <p class="panel-intro">
+            Drop a restaurant, café, bakery, or late-night gem onto the map.
+          </p>
+
+          <form id="add-spot-form" class="form-card">
+            <label>
+              Your name / handle
+              <input
+                id="spot-username"
+                type="text"
+                placeholder="@foodiegi"
+                required
+              />
+            </label>
+
+            <label>
+              Restaurant name
+              <input
+                id="spot-name"
+                type="text"
+                placeholder="Dolce Vita Trattoria"
+                required
+              />
+            </label>
+
+            <label>
+              City
+              <input
+                id="spot-city"
+                type="text"
+                placeholder="Miami, FL"
+                required
+              />
+            </label>
+
+            <label>
+              Cuisine / vibe
+              <input
+                id="spot-cuisine"
+                type="text"
+                placeholder="Italian · date night"
+                required
+              />
+            </label>
+
+            <label>
+              Price range
+              <select id="spot-price" required>
+                <option value="">Select</option>
+                <option value="$">$ · casual</option>
+                <option value="$$">$$ · mid</option>
+                <option value="$$$">$$$ · special night</option>
+              </select>
+            </label>
+
+            <label>
+              Image URL (optional)
+              <input
+                id="spot-image"
+                type="url"
+                placeholder="https://example.com/photo.jpg"
+              />
+            </label>
+
+            <button type="submit" class="btn-primary">
+              Add spot to the map
+            </button>
+            <p class="form-hint">
+              New additions appear instantly in the feed and are available for
+              reviews.
+            </p>
+          </form>
+        </div>
+
+        <div class="column">
+          <h2>Spots People Are Talking About</h2>
+          <p class="panel-intro">
+            Newest additions first. Click into the vibes, scan the details, and
+            decide where you’re headed next.
+          </p>
+
+          <div id="spots-list" class="spots-list">
+            <!-- Spot cards go here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews + Story -->
+      <section class="panel panel-grid">
+        <div class="column">
+          <h2>Drop a Review</h2>
+          <p class="panel-intro">
+            Rate the vibe, not just the food. Help someone else pick their next
+            spot.
+          </p>
+
+          <form id="add-review-form" class="form-card">
+            <label>
+              Your name / handle
+              <input
+                id="review-username"
+                type="text"
+                placeholder="@brunchlover"
+                required
+              />
+            </label>
+
+            <label>
+              Which spot?
+              <select id="review-spot" required>
+                <option value="">Select a spot you've added or love</option>
+              </select>
+            </label>
+
+            <label>
+              Rating (1–5★)
+              <select id="review-rating" required>
+                <option value="">Select</option>
+                <option value="1">1★</option>
+                <option value="2">2★</option>
+                <option value="3">3★</option>
+                <option value="4">4★</option>
+                <option value="5">5★</option>
+              </select>
+            </label>
+
+            <label>
+              Quick thoughts (optional)
+              <textarea
+                id="review-text"
+                rows="3"
+                placeholder="Cozy lighting, great service, tiramisu is a must..."
+              ></textarea>
+            </label>
+
+            <button type="submit" class="btn-primary">Submit review</button>
+          </form>
+        </div>
+
+        <div id="story-section" class="column story-card">
+          <h2>The Story Behind Chic City Eats</h2>
+          <p>
+            This project turns restaurant reviews into a collaborative,
+            data-driven moodboard of the city. Instead of long essays, Chic City
+            Eats focuses on trends, vibes, and community patterns.
+          </p>
+          <p>
+            From a systems perspective, the app uses a RESTful Express server,
+            a SQLite database powered by Sequelize models, and a lightweight
+            frontend that talks to the API. Every card, rating, and bar in the
+            chart comes directly from the database.
+          </p>
+          <p>
+            The idea is to feel more like a digital magazine spread than a
+            typical CRUD app, while still checking all the boxes for routes,
+            persistence, and visualization.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Chic City Eats · Built with ♥ for food lovers</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

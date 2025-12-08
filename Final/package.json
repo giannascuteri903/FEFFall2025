@@ -1,14 +1,16 @@
 {
-  "name": "final",
+  "name": "chic-city-eats",
   "version": "1.0.0",
-  "description": "Chic City Eats backend + frontend",
+  "description": "Chic City Eats - vibe-first restaurant journal",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "sequelize": "^6.37.0",
     "sqlite3": "^5.1.7"
   }
