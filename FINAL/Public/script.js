@@ -1,4 +1,3 @@
-// Load recipes on page load
 document.addEventListener("DOMContentLoaded", loadRecipes);
 
 async function loadRecipes() {
@@ -14,10 +13,15 @@ async function loadRecipes() {
 
         card.innerHTML = `
             <h3>${r.title}</h3>
-            <p><strong>By:</strong> ${r.createdBy || "Anonymous"}</p>
-            <p><strong>Ingredients:</strong><br>${r.ingredients.replace(/\n/g, "<br>")}</p>
-            <p><strong>Instructions:</strong><br>${r.instructions}</p>
+            <p class="creator">Posted by <strong>${r.createdBy || "Anonymous"}</strong></p>
+
             ${r.imageUrl ? `<img src="${r.imageUrl}" alt="${r.title}">` : ""}
+
+            <p class="section-title">Ingredients:</p>
+            <p>${r.ingredients.replace(/\n/g, "<br>")}</p>
+
+            <p class="section-title">Instructions:</p>
+            <p>${r.instructions}</p>
         `;
 
         feed.appendChild(card);
