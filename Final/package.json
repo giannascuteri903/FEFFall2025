@@ -1,18 +1,19 @@
 {
-  "name": "final",
+  "name": "chic-city-eats",
   "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
+  "description": "Chic City Eats – collaborative restaurant review & vibes tracker",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "sequelize": "^6.37.7",
+    "express": "^4.21.2",
+    "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
   }
 }
