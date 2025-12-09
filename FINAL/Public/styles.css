@@ -248,8 +248,8 @@ header p {
    LIKE BUTTON
 -------------------------------------------------- */
 .like-btn {
-    margin-top: 12px;
-    padding: 10px 15px;
+    margin-top: 14px;
+    padding: 11px 15px;
     background: #000;
     color: white;
     border-radius: 8px;
@@ -342,12 +342,18 @@ header p {
 -------------------------------------------------- */
 
 .landing-body {
-    background: linear-gradient(135deg, #ffe5ec, #ffd6a5, #fff6db);
+    /* gradient + polka dots */
+    background-image:
+        radial-gradient(circle at 10px 10px, #ff8ab7, 2px, transparent 0),  
+        radial-gradient(circle at 40px 40px, #ff8ab7, 2px, transparent 0),
+        linear-gradient(135deg, #ffe5ec, #ffd6a5, #fff6db);
+    background-size: 80px 80px, 80px 80px, 100% 100%;
+    background-repeat: repeat;
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: "Inter", sans-serif;
 }
 
 .landing-container {
@@ -361,8 +367,9 @@ header p {
 }
 
 .landing-title {
+    font-family: "Pacifico", cursive;
     font-size: 3rem;
-    font-weight: 800;
+    font-weight: 500;
     background: black;
     -webkit-background-clip: text;
     color: transparent;
