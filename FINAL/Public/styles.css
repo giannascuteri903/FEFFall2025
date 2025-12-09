@@ -45,17 +45,42 @@ input, textarea, select, button, option, ::placeholder {
 .navbar ul {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 16px;
     list-style: none;
 }
 
+/* Pill-style nav links */
 .navbar a {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 999px;           /* pill shape */
+    border: 1px solid #000;
+    background: #ffffff;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: #000;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform 0.15s ease, 
+                background-color 0.15s ease, 
+                box-shadow 0.15s ease;
 }
+
+/* Hover / focus: subtle lift + fill */
+.navbar a:hover,
+.navbar a:focus {
+    background: #000;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* Active page pill */
+.navbar a[aria-current="page"] {
+    background: #000;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
 
 .navbar a:hover,
 .navbar a:focus {
@@ -79,14 +104,37 @@ input, textarea, select, button, option, ::placeholder {
 /* --------------------------------------------------
    HEADER
 -------------------------------------------------- */
-header {
+ header {
     width: 100%;
     padding: 24px 12px;
     text-align: center;
+
+    /* existing gradient */
     background: linear-gradient(135deg, #ffe5ec, #ffd6a5, #fff6db);
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     border-radius: 0 0 16px 16px;
     margin-bottom: 20px;
+
+    /* needed for polka dot overlay */
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    /* subtle polka dot pattern */
+    background-image: radial-gradient(#ff8ab7 1.5px, transparent 2.8px);
+    background-size: 30px 30px;
+    opacity: 0.5;             /* adjust to taste */
+    pointer-events: none;
+}
+
+header * {
+    position: relative;
+    z-index: 1;
 }
 
 header h1 {
@@ -120,8 +168,9 @@ header p {
 }
 
 .about-section h3 {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-family: "Pacifico", cursive;
+    font-size: 2rem;
+    font-weight: 500;
     margin-bottom: 12px;
 }
 
