@@ -242,3 +242,64 @@ header p {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(194, 194, 194, 0.1);
 }
+
+/* LANDING PAGE */
+.landing-body {
+    background: linear-gradient(135deg, #ffe4ec, #fdf2ff, #e9f7ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.landing-container {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    max-width: 500px;
+}
+
+.landing-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff7ea8, #ff96c6, #ffa5dc);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.landing-tagline {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.landing-description {
+    margin-bottom: 30px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.landing-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.landing-btn {
+    display: inline-block;
+    background: #ff92a9;
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.landing-btn:hover {
+    background: #ff6b8f;
+    transform: translateY(-3px);
+}
