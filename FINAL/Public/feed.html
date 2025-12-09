@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorFeed – Feed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="feed.html" class="active">Feed</a>
+        <a href="add.html">Add Recipe</a>
+        <a href="insights.html">Insights</a>
+    </nav>
+
+    <header class="fun-header">
+        <h1>FlavorFeed</h1>
+        <p>Scroll. Cook. Share. Repeat!</p>
+    </header>
+
+    <main>
+        <div class="feed-header">
+            <h2>Recipe Feed</h2>
+            <input type="text" id="searchInput" placeholder="Search recipes..." class="search-bar">
+        </div>
+
+        <div id="recipeFeed" class="feed-container masonry"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

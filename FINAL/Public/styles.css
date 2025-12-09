@@ -80,6 +80,36 @@ header p {
     background: #444;
 }
 
+/* CATEGORY DROPDOWN — match input fields */
+#category {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+    cursor: pointer;
+    color: #444;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Custom dropdown arrow */
+#category {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+/* Hover + Focus for consistency */
+#category:hover,
+#category:focus {
+    border-color: #000;
+    outline: none;
+}
+
 /* ---------------------------- */
 /* MASONRY FEED (Pinterest style) */
 /* ---------------------------- */

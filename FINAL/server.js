@@ -57,9 +57,7 @@ app.post("/recipes/:id/like", async (req, res) => {
 // -------------------------------
 // START SERVER
 // -------------------------------
-sequelize.sync().then(() => {
-  console.log("Database synced!");
-  app.listen(3000, () => 
-    console.log("Server running on http://localhost:3000")
-  );
+sequelize.sync({ force: true }).then(() => {
+    console.log("Database force-synced!");
+    app.listen(3000, () => console.log("Server running on http://localhost:3000"));
 });
