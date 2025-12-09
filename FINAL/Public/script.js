@@ -21,14 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
    LANDING PAGE — LOGIN + SIGNUP MODALS
 -------------------------------------------------- */
 function setupLandingPage() {
-    const loginBtn = document.getElementById("loginBtn");
-    const signupBtn = document.getElementById("signupBtn");
-    const guestBtn = document.getElementById("guestBtn");
+    const loginBtn = document.getElementById("openLogin");
+    const signupBtn = document.getElementById("openSignup");
+    const guestBtn = document.querySelector("a[href='feed.html']");
 
     if (loginBtn) loginBtn.onclick = () => openModal("loginModal");
     if (signupBtn) signupBtn.onclick = () => openModal("signupModal");
     if (guestBtn) guestBtn.onclick = () => window.location.href = "feed.html";
 }
+
 
 function openModal(id) {
     document.getElementById(id).classList.add("show");
