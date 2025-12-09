@@ -476,3 +476,35 @@ header p {
 .landing-btn {
     border: 3px solid #000 !important;
 }
+
+/* ===== Demo Video Section ===== */
+.demo-section {
+    margin: 40px auto 80px;
+    padding: 30px;
+    max-width: 900px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+}
+
+.demo-title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.demo-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.demo-video {
+    width: 100%;
+    border-radius: 12px;
+    outline: none;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
