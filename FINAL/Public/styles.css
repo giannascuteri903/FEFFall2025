@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /* --------------------------------------------------
    GLOBAL RESET
@@ -34,7 +35,7 @@ input, textarea, select, button, option, ::placeholder {
 .navbar {
     width: 100%;
     background: white;
-    border-bottom: 2px solid #f3d0dd;
+    border-bottom: 2px solid #000000;
     padding: 15px 0;
     position: sticky;
     top: 0;
@@ -89,8 +90,9 @@ header {
 }
 
 header h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    font-weight: 300;
     margin-bottom: 6px;
 }
 
@@ -150,8 +152,8 @@ header p {
 .search-bar {
     padding: 10px 16px;
     border-radius: 20px;
-    border: 2px solid #ccc;
-    width: 250px;
+    border: 2.5px solid #000000;
+    width: 310px;
     transition: 0.2s;
 }
 
@@ -177,8 +179,8 @@ header p {
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 1px solid #eee;
+    box-shadow: 0 4px 15px rgba(156, 156, 156, 0.1);
+    border: 1px solid #d0d0d0;
     transition: transform 0.2s ease;
 }
 
@@ -284,4 +286,137 @@ header p {
 .site-footer p {
     opacity: 0.8;
     font-size: 0.9rem;
+}
+
+/* --------------------------------------------------
+   LANDING PAGE
+-------------------------------------------------- */
+
+.landing-body {
+    background: linear-gradient(135deg, #ffe5ec, #ffd6a5, #fff6db);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+}
+
+.landing-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.landing-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: black;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.landing-tagline {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.landing-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.landing-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.landing-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #ff92a9;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.landing-btn:hover {
+    transform: scale(1.06);
+    background: #ff6b8a;
+}
+
+/* MODALS */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff92a9;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.modal-btn:hover {
+    background: #ff6f8b;
+}
+
+.modal-close {
+    margin-top: 10px;
+    cursor: pointer;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.landing-btn {
+    border: 3px solid #000 !important;
 }
