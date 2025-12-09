@@ -1,68 +1,92 @@
+/* --------------------------------------------------
+   GLOBAL STATE
+-------------------------------------------------- */
 let likesChart;
 let ingredientsChart;
-
-// Store recipes in memory
 let allRecipes = [];
 
 /* --------------------------------------------------
-   PAGE ROUTING (detect which HTML file you're on)
+   PAGE ROUTING — runs only what each page needs
 -------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
     const page = window.location.pathname;
 
-    if (page.includes("feed")) {
-        setupFeedPage();
-    }
-    if (page.includes("add")) {
-        setupAddPage();
-    }
-    if (page.includes("insights")) {
-        setupInsightsPage();
-    }
+    if (page.includes("feed")) setupFeedPage();
+    if (page.includes("add")) setupAddPage();
+    if (page.includes("insights")) setupInsightsPage();
+    if (page.includes("index")) setupLandingPage();
 });
 
 /* --------------------------------------------------
-   SETUP: FEED PAGE
+   LANDING PAGE — LOGIN + SIGNUP MODALS
+-------------------------------------------------- */
+function setupLandingPage() {
+    const loginBtn = document.getElementById("loginBtn");
+    const signupBtn = document.getElementById("signupBtn");
+    const guestBtn = document.getElementById("guestBtn");
+
+    if (loginBtn) loginBtn.onclick = () => openModal("loginModal");
+    if (signupBtn) signupBtn.onclick = () => openModal("signupModal");
+    if (guestBtn) guestBtn.onclick = () => window.location.href = "feed.html";
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("show");
+}
+
+function fakeLogin() {
+    alert("Logged in! (Demo only)");
+    window.location.href = "feed.html";
+}
+
+function fakeSignup() {
+    alert("Account created! (Demo only)");
+    window.location.href = "feed.html";
+}
+
+/* --------------------------------------------------
+   FEED PAGE SETUP
 -------------------------------------------------- */
 function setupFeedPage() {
     loadRecipes();
 
-    const search = document.getElementById("searchInput");
-    if (search) {
-        search.addEventListener("input", handleSearch);
-    }
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) searchInput.addEventListener("input", handleSearch);
 
-    // Like button handler must always work on this page
     document.addEventListener("click", likeButtonHandler);
 }
 
 /* --------------------------------------------------
-   SETUP: ADD PAGE
+   ADD PAGE SETUP
 -------------------------------------------------- */
 function setupAddPage() {
     const form = document.getElementById("recipeForm");
-    if (form) {
-        form.addEventListener("submit", submitRecipe);
-    }
+    if (form) form.addEventListener("submit", submitRecipe);
 }
 
 /* --------------------------------------------------
-   SETUP: INSIGHTS PAGE
+   INSIGHTS PAGE SETUP
 -------------------------------------------------- */
 function setupInsightsPage() {
     loadRecipesForCharts();
 }
 
 /* --------------------------------------------------
-   FETCH RECIPES FOR FEED + CHARTS
+   LOAD RECIPES FOR FEED
 -------------------------------------------------- */
 async function loadRecipes() {
     const res = await fetch("/recipes");
     allRecipes = await res.json();
-
     renderRecipes(allRecipes);
 }
 
+/* --------------------------------------------------
+   LOAD RECIPES FOR CHARTS
+-------------------------------------------------- */
 async function loadRecipesForCharts() {
     const res = await fetch("/recipes");
     allRecipes = await res.json();
@@ -76,7 +100,7 @@ async function loadRecipesForCharts() {
 -------------------------------------------------- */
 function renderRecipes(recipes) {
     const feed = document.getElementById("recipeFeed");
-    if (!feed) return; // Not on feed page
+    if (!feed) return;
 
     feed.innerHTML = "";
 
@@ -101,41 +125,41 @@ function renderRecipes(recipes) {
                 🤍 Like (${r.likes})
             </button>
         `;
+
         feed.appendChild(card);
     });
 }
 
 /* --------------------------------------------------
-   ADD NEW RECIPE
+   SUBMIT NEW RECIPE
 -------------------------------------------------- */
 async function submitRecipe(e) {
     e.preventDefault();
 
-    const newRecipe = {
+    const recipe = {
         title: document.getElementById("title").value,
+        category: document.getElementById("category").value,
         ingredients: document.getElementById("ingredients").value,
         instructions: document.getElementById("instructions").value,
         imageUrl: document.getElementById("imageUrl").value,
-        createdBy: document.getElementById("createdBy").value,
-        category: document.getElementById("category").value
+        createdBy: document.getElementById("createdBy").value
     };
 
     try {
         const res = await fetch("/recipes", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newRecipe)
+            body: JSON.stringify(recipe)
         });
 
         const created = await res.json();
         allRecipes.push(created);
 
-        // Optional redirect after adding:
         alert("Recipe added!");
         window.location.href = "feed.html";
 
     } catch (err) {
-        console.error("Error adding recipe:", err);
+        console.error("Error creating recipe:", err);
     }
 
     e.target.reset();
@@ -166,20 +190,20 @@ async function likeButtonHandler(e) {
    LIVE SEARCH
 -------------------------------------------------- */
 function handleSearch() {
-    const searchText = this.value.toLowerCase();
+    const text = this.value.toLowerCase();
 
     const filtered = allRecipes.filter(r =>
-        r.title.toLowerCase().includes(searchText) ||
-        r.ingredients.toLowerCase().includes(searchText) ||
-        (r.createdBy || "").toLowerCase().includes(searchText) ||
-        (r.category || "").toLowerCase().includes(searchText)
+        r.title.toLowerCase().includes(text) ||
+        r.ingredients.toLowerCase().includes(text) ||
+        (r.createdBy || "").toLowerCase().includes(text) ||
+        (r.category || "").toLowerCase().includes(text)
     );
 
     renderRecipes(filtered);
 }
 
 /* --------------------------------------------------
-   CHART 1: MOST LIKED RECIPES
+   CHART: MOST LIKED
 -------------------------------------------------- */
 function renderLikesChart(recipes) {
     const ctx = document.getElementById("likesChart");
@@ -193,11 +217,11 @@ function renderLikesChart(recipes) {
     likesChart = new Chart(ctx, {
         type: "bar",
         data: {
-            labels: labels,
+            labels,
             datasets: [{
                 label: "Likes",
                 data: likes,
-                backgroundColor: "#ff92a9ff"
+                backgroundColor: "#ff92a9"
             }]
         },
         options: {
@@ -208,20 +232,18 @@ function renderLikesChart(recipes) {
 }
 
 /* --------------------------------------------------
-   CHART 2: TOP INGREDIENTS
+   CHART: TOP INGREDIENTS
 -------------------------------------------------- */
 function renderIngredientsChart(recipes) {
     const ctx = document.getElementById("ingredientsChart");
     if (!ctx) return;
 
-    let ingredientCounts = {};
+    const ingredientCounts = {};
 
     recipes.forEach(recipe => {
         recipe.ingredients.split("\n").forEach(item => {
-            const cleaned = item.trim().toLowerCase();
-            if (cleaned.length > 0) {
-                ingredientCounts[cleaned] = (ingredientCounts[cleaned] || 0) + 1;
-            }
+            const key = item.trim().toLowerCase();
+            if (key) ingredientCounts[key] = (ingredientCounts[key] || 0) + 1;
         });
     });
 
@@ -229,23 +251,19 @@ function renderIngredientsChart(recipes) {
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5);
 
-    const labels = sorted.map(i => i[0]);
-    const counts = sorted.map(i => i[1]);
+    const labels = sorted.map(([k]) => k);
+    const counts = sorted.map(([_, v]) => v);
 
     if (ingredientsChart) ingredientsChart.destroy();
 
     ingredientsChart = new Chart(ctx, {
         type: "pie",
         data: {
-            labels: labels,
+            labels,
             datasets: [{
                 data: counts,
                 backgroundColor: [
-                    "#ffbdcbff",
-                    "#aed1e8ff",
-                    "#fef0cbff",
-                    "#ccf7f7ff",
-                    "#dccbfdff"
+                    "#ffbdcb", "#aed1e8", "#fef0cb", "#ccf7f7", "#dccbfd"
                 ]
             }]
         }

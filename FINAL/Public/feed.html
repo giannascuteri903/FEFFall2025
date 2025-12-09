@@ -6,28 +6,56 @@
     <title>FlavorFeed – Feed</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <nav class="navbar">
-        <a href="feed.html" class="active">Feed</a>
-        <a href="add.html">Add Recipe</a>
-        <a href="insights.html">Insights</a>
+    <!-- NAVIGATION -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li><a href="feed.html" aria-current="page">Feed</a></li>
+            <li><a href="add.html">Add Recipe</a></li>
+            <li><a href="insights.html">Insights</a></li>
+        </ul>
     </nav>
 
-    <header class="fun-header">
+    <header>
         <h1>FlavorFeed</h1>
         <p>Scroll. Cook. Share. Repeat!</p>
     </header>
 
     <main>
         <div class="feed-header">
-            <h2>Recipe Feed</h2>
-            <input type="text" id="searchInput" placeholder="Search recipes..." class="search-bar">
+            <h2 id="feed-heading">Recipe Feed</h2>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Search recipes..." 
+                class="search-bar" 
+                aria-label="Search recipes"
+            >
         </div>
 
-        <div id="recipeFeed" class="feed-container masonry"></div>
+        <section 
+            id="recipeFeed" 
+            class="feed-container masonry" 
+            aria-labelledby="feed-heading">
+        </section>
     </main>
 
+    <!-- ABOUT SECTION -->
+    <aside class="about-section" aria-label="About FlavorFeed">
+        <h3>About FlavorFeed</h3>
+        <p>
+            FlavorFeed is your creative space to discover new recipes, share culinary ideas, 
+            and explore trending food inspiration. Built with love by Gianna Scuteri.
+        </p>
+    </aside>
+
+    <footer class="site-footer" role="contentinfo">
+        <p>2025 FlavorFeed · Built by Gianna Scuteri</p>
+    </footer>
+
     <script src="script.js"></script>
+
 </body>
 </html>

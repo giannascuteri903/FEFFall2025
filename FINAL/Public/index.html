@@ -3,27 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlavorFeed — Welcome</title>
+    <title>FlavorFeed – Welcome</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="landing-body">
 
-    <div class="landing-container">
-        <h1 class="landing-title">FlavorFeed</h1>
-        <p class="landing-tagline">Scroll. Cook. Share. Repeat!</p>
+    <main>
+        <section class="landing-container" aria-label="Landing Page">
+            <h1 class="landing-title">FlavorFeed</h1>
+            <p class="landing-tagline">Discover. Create. Share.</p>
 
-        <p class="landing-description">
-            Your social media–inspired recipe platform. Discover new flavors, share your creations, 
-            track popular ingredients, and explore real-time cooking insights.
-        </p>
+            <p class="landing-description">
+                Welcome to FlavorFeed, your social space for recipes!  
+                Log in or continue as guest to browse the feed, post recipes, and view insights.
+            </p>
 
-        <div class="landing-buttons">
-            <a href="feed.html" class="landing-btn">🍽 View Feed</a>
-            <a href="add.html" class="landing-btn">➕ Add Recipe</a>
-            <a href="insights.html" class="landing-btn">📊 Insights</a>
+            <div class="landing-buttons">
+                <a class="landing-btn" href="feed.html">Continue as Guest</a>
+                <button class="landing-btn" id="openLogin">Log In</button>
+                <button class="landing-btn" id="openSignup">Sign Up</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <h2>Log In</h2>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+
+            <button class="modal-btn" onclick="window.location.href='feed.html'">Log In</button>
+            <p class="modal-close" id="closeLogin">Cancel</p>
         </div>
     </div>
+
+    <!-- SIGNUP MODAL -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <h2>Sign Up</h2>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Create Password">
+
+            <button class="modal-btn" onclick="window.location.href='feed.html'">Create Account</button>
+            <p class="modal-close" id="closeSignup">Cancel</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>

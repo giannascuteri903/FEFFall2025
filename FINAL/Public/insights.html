@@ -7,31 +7,51 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <nav class="navbar">
-        <a href="feed.html">Feed</a>
-        <a href="add.html">Add Recipe</a>
-        <a href="insights.html" class="active">Insights</a>
+    <!-- NAVIGATION -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li><a href="feed.html">Feed</a></li>
+            <li><a href="add.html">Add Recipe</a></li>
+            <li><a href="insights.html" aria-current="page">Insights</a></li>
+        </ul>
     </nav>
 
-    <header class="fun-header">
+    <header>
         <h1>Recipe Insights</h1>
-        <p>See what's trending!</p>
+        <p>Explore trends and popular ingredients</p>
     </header>
 
-    <section class="charts-section">
-        <div class="chart-container">
+    <main class="charts-section">
+
+        <section class="chart-container" aria-label="Most Liked Recipes Chart">
             <h3>Most Liked Recipes</h3>
             <canvas id="likesChart"></canvas>
-        </div>
+        </section>
 
-        <div class="chart-container">
+        <section class="chart-container" aria-label="Top Ingredients Chart">
             <h3>Top Ingredients</h3>
             <canvas id="ingredientsChart"></canvas>
-        </div>
-    </section>
+        </section>
+
+    </main>
+
+    <!-- ABOUT SECTION -->
+    <aside class="about-section" aria-label="About FlavorFeed">
+        <h3>About FlavorFeed</h3>
+        <p>
+            FlavorFeed is a creative space to discover new recipes, share culinary ideas, 
+            and explore trending food inspiration. Built with love by Gianna Scuteri.
+        </p>
+    </aside>
+
+    <footer class="site-footer" role="contentinfo">
+        <p>2025 FlavorFeed · Built by Gianna Scuteri</p>
+    </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>
